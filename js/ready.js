@@ -1,4 +1,4 @@
-document.onreadystatechange = function () {  
+document.onreadystatechange = function () {
 
     if (document.readyState == "complete") {
 
@@ -77,7 +77,7 @@ document.onreadystatechange = function () {
             return $.get(options.session.basePath + "bookmark/cursor/" + options.session.fileId);
         };
         options.session.setCursor = function(value) {
-            return $.post(options.session.basePath + "bookmark/cursor", 
+            return $.post(options.session.basePath + "bookmark/cursor",
                 {
                     "fileId": options.session.fileId,
                     "value": JSON.stringify(value)
@@ -103,7 +103,7 @@ document.onreadystatechange = function () {
         }
     }
 
-    // why is there no standard library function for this? 
+    // why is there no standard library function for this?
     function getUrlParameter (param) {
         var pattern = new RegExp('[?&]'+param+'((=([^&]*))|(?=(&|$)))','i');
         var m = window.location.search.match(pattern);
@@ -113,9 +113,9 @@ document.onreadystatechange = function () {
     // start epub.js renderer
     function renderEpub(file, options) {
 
-        // some parameters... 
-        EPUBJS.filePath = "vendor/epubjs/";
-        EPUBJS.cssPath = "vendor/epubjs/css/";
+        // some parameters...
+        EPUBJS.filePath = "public/epubjs/";
+        EPUBJS.cssPath = "public/epubjs/css/";
         EPUBJS.basePath = $('.session').data('basepath');
 		EPUBJS.staticPath = $('.session').data('staticpath');
 
@@ -136,16 +136,16 @@ document.onreadystatechange = function () {
 
     // start cbr.js renderer
     function renderCbr(file, options) {
-        CBRJS.filePath = "vendor/cbrjs/";
+        CBRJS.filePath = "public/cbrjs/";
 
         var reader = cbReader(file, options);
     }
 
     // start pdf.js renderer
     function renderPdf(file, options) {
-        PDFJS.filePath = "vendor/pdfjs/";
-        PDFJS.imageResourcesPath = "vendor/pdfjs/css/images/";
-        PDFJS.workerSrc = options.session.staticPath + 'vendor/pdfjs/lib/pdf.worker.js';
+        PDFJS.filePath = "public/pdfjs/";
+        PDFJS.imageResourcesPath = "public/pdfjs/css/images/";
+        PDFJS.workerSrc = options.session.staticPath + 'public/pdfjs/lib/pdf.worker.js';
 
         var reader = pdfReader(file, options);
     }
