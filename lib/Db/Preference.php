@@ -42,6 +42,7 @@ class Preference extends ReaderEntity implements \JsonSerializable {
 
 	public function setUserId(string $userId): void {
 		$this->userId = $userId;
+		$this->markFieldUpdated('userId');
 	}
 
 	public function getScope(): string {
@@ -50,6 +51,7 @@ class Preference extends ReaderEntity implements \JsonSerializable {
 
 	public function setScope(string $scope): void {
 		$this->scope = $scope;
+		$this->markFieldUpdated('scope');
 	}
 
 	public function getFileId(): int {
@@ -58,6 +60,7 @@ class Preference extends ReaderEntity implements \JsonSerializable {
 
 	public function setFileId(int $fileId): void {
 		$this->fileId = $fileId;
+		$this->markFieldUpdated('fileId');
 	}
 
 	public function getName(): string {
@@ -66,6 +69,7 @@ class Preference extends ReaderEntity implements \JsonSerializable {
 
 	public function setName(string $name): void {
 		$this->name = $name;
+		$this->markFieldUpdated('name');
 	}
 
 	public function getValue(): string {
@@ -74,5 +78,6 @@ class Preference extends ReaderEntity implements \JsonSerializable {
 
 	public function setValue(string $value): void {
 		$this->value = $value;
+		$this->markFieldUpdated('value');
 	}
 }

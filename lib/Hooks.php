@@ -18,7 +18,7 @@ use OCP\Server;
 
 class Hooks {
 
-	public static function announce_settings(array $settings): void {
+	public function announce_settings(array $settings): void {
 		// Nextcloud encodes this as JSON, Owncloud does not (yet) (#75)
 		// TODO: remove this when Owncloud starts encoding oc_appconfig as JSON just like it already encodes most other properties
 		$user = Server::get(IUserSession::class)->getUser();
@@ -39,7 +39,7 @@ class Hooks {
 		}
 	}
 
-	protected static function deleteFile(IDBConnection $connection, int $fileId): void {
+	protected function deleteFile(IDBConnection $connection, int $fileId): void {
 		$queryBuilder = $connection->getQueryBuilder();
 		$queryBuilder->delete('reader_bookmarks')->where('file_id = file_id')->setParameter('file_id', $fileId);
 		$queryBuilder->executeStatement();
@@ -49,7 +49,7 @@ class Hooks {
 		$queryBuilder->executeStatement();
 	}
 
-	protected static function deleteUser(IDBConnection $connection, string $userId): void {
+	protected function deleteUser(IDBConnection $connection, string $userId): void {
 		$queryBuilder = $connection->getQueryBuilder();
 		$queryBuilder->delete('reader_bookmarks')->where('user_id = user_id')->setParameter('user_id', $userId);
 		$queryBuilder->executeStatement();
@@ -59,7 +59,7 @@ class Hooks {
 		$queryBuilder->executeStatement();
 	}
 
-	private static function isJson(mixed $string): bool {
+	private function isJson(mixed $string): bool {
 		return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
 	}
 }

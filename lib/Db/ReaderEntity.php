@@ -24,7 +24,7 @@ abstract class ReaderEntity extends Entity {
 	 *
 	 * @return string|array
 	 */
-	public static function conditional_json_decode(string $el): mixed {
+	public function conditional_json_decode(string $el): mixed {
 		/** @var array $result */
 		$result = json_decode($el);
 		if (json_last_error() === JSON_ERROR_NONE) {
@@ -40,6 +40,7 @@ abstract class ReaderEntity extends Entity {
 
 	public function setLastModified(int $lastModified): void {
 		$this->lastModified = $lastModified;
+		$this->markFieldUpdated('lastModified');
 	}
 
 	/**

@@ -26,8 +26,8 @@ class Bookmark extends ReaderEntity implements \JsonSerializable {
 			'fileId' => $this->getFileId(),
 			'type' => $this->getType(),
 			'name' => $this->getName(),
-			'value' => static::conditional_json_decode($this->getValue()),
-			'content' => static::conditional_json_decode($this->getContent()),
+			'value' => $this->conditional_json_decode($this->getValue()),
+			'content' => $this->conditional_json_decode($this->getContent()),
 			'lastModified' => $this->getLastModified()
 		];
 	}
@@ -48,6 +48,7 @@ class Bookmark extends ReaderEntity implements \JsonSerializable {
 
 	public function setUserId(string $userId): void {
 		$this->userId = $userId;
+		$this->markFieldUpdated('userId');
 	}
 
 	public function getFileId(): int {
@@ -56,6 +57,7 @@ class Bookmark extends ReaderEntity implements \JsonSerializable {
 
 	public function setFileId(int $fileId): void {
 		$this->fileId = $fileId;
+		$this->markFieldUpdated('fileId');
 	}
 
 	public function getType(): string {
@@ -64,6 +66,7 @@ class Bookmark extends ReaderEntity implements \JsonSerializable {
 
 	public function setType(string $type): void {
 		$this->type = $type;
+		$this->markFieldUpdated('type');
 	}
 
 	public function getName(): string {
@@ -72,6 +75,7 @@ class Bookmark extends ReaderEntity implements \JsonSerializable {
 
 	public function setName(string $name): void {
 		$this->name = $name;
+		$this->markFieldUpdated('name');
 	}
 
 	public function getValue(): string {
@@ -80,6 +84,7 @@ class Bookmark extends ReaderEntity implements \JsonSerializable {
 
 	public function setValue(string $value): void {
 		$this->value = $value;
+		$this->markFieldUpdated('value');
 	}
 
 	public function getContent(): string {
@@ -88,5 +93,6 @@ class Bookmark extends ReaderEntity implements \JsonSerializable {
 
 	public function setContent(string $content): void {
 		$this->content = $content;
+		$this->markFieldUpdated('content');
 	}
 }
