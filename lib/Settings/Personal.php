@@ -11,6 +11,7 @@
 
 namespace OCA\Epubreader\Settings;
 
+use OCA\Epubreader\AppInfo\Application;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
 use OCP\Settings\ISettings;
@@ -34,12 +35,12 @@ class Personal implements ISettings {
 	 */
 	public function getForm(): TemplateResponse {
 		$parameters = [
-			'EpubEnable' => $this->configManager->getUserValue($this->userId, 'epubreader', 'epub_enable'),
-			'PdfEnable' => $this->configManager->getUserValue($this->userId, 'epubreader', 'pdf_enable'),
-			'CbxEnable' => $this->configManager->getUserValue($this->userId, 'epubreader', 'cbx_enable'),
+			'EpubEnable' => $this->configManager->getUserValue($this->userId, Application::APP_ID, 'epub_enable'),
+			'PdfEnable' => $this->configManager->getUserValue($this->userId, Application::APP_ID, 'pdf_enable'),
+			'CbxEnable' => $this->configManager->getUserValue($this->userId, Application::APP_ID, 'cbx_enable'),
 		];
 
-		return new TemplateResponse('epubreader', 'settings-personal', $parameters, '');
+		return new TemplateResponse(Application::APP_ID, 'settings-personal', $parameters, '');
 	}
 
 	/**
@@ -56,7 +57,7 @@ class Personal implements ISettings {
 	 * @since 9.1
 	 */
 	public function getSection(): string {
-		return 'epubreader';
+		return Application::APP_ID;
 	}
 
 	/**
@@ -65,7 +66,7 @@ class Personal implements ISettings {
 	 * @return string
 	 */
 	public function getSectionID(): string {
-		return 'epubreader';
+		return Application::APP_ID;
 	}
 
 	/**

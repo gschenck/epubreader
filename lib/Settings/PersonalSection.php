@@ -11,6 +11,7 @@
 
 namespace OCA\Epubreader\Settings;
 
+use OCA\Epubreader\AppInfo\Application;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\Settings\IIconSection;
@@ -31,7 +32,7 @@ class PersonalSection implements IIconSection {
 	 * @return string
 	 */
 	public function getIcon(): string {
-		return $this->urlGenerator->imagePath('epubreader', 'app.svg');
+		return $this->urlGenerator->imagePath(Application::APP_ID, 'app.svg');
 	}
 
 	/**
@@ -40,7 +41,7 @@ class PersonalSection implements IIconSection {
 	 * @return string
 	 */
 	public function getID(): string {
-		return 'epubreader';
+		return Application::APP_ID;
 	}
 
 	/**

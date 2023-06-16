@@ -12,30 +12,48 @@
 
 namespace OCA\Epubreader\Controller;
 
-use OCA\Epubreader\Config;
+use OCA\Epubreader\AppInfo\Application;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\JSONResponse;
+use OCP\IConfig;
+use OCP\IL10N;
+use OCP\IRequest;
 
 class SettingsController extends Controller {
+
+	private string $userId;
+	private IL10N $l10n;
+	private IConfig $configManager;
+
+	public function __construct(
+		string $appName,
+		IRequest $request,
+		string $userId,
+		IL10N $l10n,
+		IConfig $configManager
+	) {
+		parent::__construct($appName, $request);
+		$this->userId = $userId;
+		$this->l10n = $l10n;
+		$this->configManager = $configManager;
+	}
 
 	/**
 	 * @brief set preference for file type association
 	 *
 	 * @NoAdminRequired
 	 *
-	 * @param int $EpubEnable
-	 * @param int $PdfEnable
-	 * @param int $CbxEnable
+	 * @param string $EpubEnable
+	 * @param string $PdfEnable
+	 * @param string $CbxEnable
 	 */
-	public function setPreference(int $EpubEnable, int $PdfEnable, int $CbxEnable): JSONResponse {
-		$l = \OC::$server->getL10N('epubreader');
-
-		Config::set('epub_enable', $EpubEnable);
-		Config::set('pdf_enable', $PdfEnable);
-		Config::set('cbx_enable', $CbxEnable);
+	public function setPreference(string $EpubEnable, string $PdfEnable, string $CbxEnable): JSONResponse {
+		$this->configManager->setUserValue($this->userId, Application::APP_ID, 'epub_enable', $EpubEnable);
+		$this->configManager->setUserValue($this->userId, Application::APP_ID, 'pdf_enable', $PdfEnable);
+		$this->configManager->setUserValue($this->userId, Application::APP_ID, 'cbx_enable', $CbxEnable);
 
 		$response = [
-			'data' => ['message' => $l->t('Settings updated successfully.')],
+			'data' => ['message' => $this->l10n->t('Settings updated successfully.')],
 			'status' => 'success'
 		];
 

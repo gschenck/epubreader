@@ -29,11 +29,6 @@
                 <referencedClass name="Doctrine\DBAL\Schema\Table" />
             </errorLevel>
         </UndefinedDocblockClass>
-        <UndefinedClass>
-            <errorLevel type="suppress">
-                <referencedClass name="OC" />
-            </errorLevel>
-        </UndefinedClass>
         <PropertyNotSetInConstructor errorLevel="suppress" />
     </issueHandlers>
 </psalm>

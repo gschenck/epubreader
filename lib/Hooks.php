@@ -10,32 +10,17 @@
 
 namespace OCA\Epubreader;
 
-use \OC\User\User as User;
-use OCP\Files\Node;
+use OCA\Epubreader\AppInfo\Application;
+use OCP\IConfig;
 use OCP\IDBConnection;
-use OCP\Util;
+use OCP\IUser;
+use OCP\Server;
 
 class Hooks {
 
-	public static function register(): void {
-		/** @psalm-suppress DeprecatedMethod */
-		Util::connectHook('\OCP\Config', 'js', 'OCA\Epubreader\Hooks', 'announce_settings');
-
-		\OC::$server->getRootFolder()->listen('\OC\Files', 'preDelete', function (Node $node) {
-			$fileId = $node->getId();
-			$connection = \OC::$server->getDatabaseConnection();
-			self::deleteFile($connection, $fileId);
-		});
-		\OC::$server->getUserManager()->listen('\OC\User', 'preDelete', function (User $user) {
-			$userId = $user->getUID();
-			$connection = \OC::$server->getDatabaseConnection();
-			self::deleteUser($connection, $userId);
-		});
-	}
-
 	public static function announce_settings(array $settings): void {
 		// Nextcloud encodes this as JSON, Owncloud does not (yet) (#75)
-		// TODO: rmeove this when Owncloud starts encoding oc_appconfig as JSON just like it already encodes most other properties
+		// TODO: remove this when Owncloud starts encoding oc_appconfig as JSON just like it already encodes most other properties
 		if (array_key_exists('array', $settings) &&
 			is_array($settings['array']) &&
 			array_key_exists('oc_appconfig', $settings['array'])
@@ -44,9 +29,9 @@ class Hooks {
 			/** @var array $array */
 			$array = ($isJson) ? json_decode((string) $settings['array']['oc_appconfig'], true) : $settings['array']['oc_appconfig'];
 			$array['filesReader'] = [
-				'enableEpub' => Config::get('epub_enable', 'true'),
-				'enablePdf' => Config::get('pdf_enable', 'true'),
-				'enableCbx' => Config::get('cbx_enable', 'true'),
+				'enableEpub' => Server::get(IConfig::class)->getUserValue(Server::get(IUser::class)->getUID(), Application::APP_ID, 'epub_enable', 'true'),
+				'enablePdf' => Server::get(IConfig::class)->getUserValue(Server::get(IUser::class)->getUID(), Application::APP_ID, 'pdf_enable', 'true'),
+				'enableCbx' => Server::get(IConfig::class)->getUserValue(Server::get(IUser::class)->getUID(), Application::APP_ID, 'cbx_enable', 'true'),
 			];
 			$settings['array']['oc_appconfig'] = ($isJson) ? json_encode($array) : $array;
 		}
