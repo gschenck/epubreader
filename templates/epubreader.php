@@ -237,7 +237,7 @@
                             <?php p($l->t("menu")); ?>
                         </a>
                     </div>
-                    <div id="metainfo" class="nightshift">
+                    <div id="metainfo">
                         <span id="book-title">
                         </span>
                         <span id="title-separator">
