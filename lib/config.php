@@ -16,6 +16,7 @@ namespace OCA\Epubreader;
  * Config class for Reader
  */
 class Config {
+
 	/**
 	 * @brief get user config value
 	 *
@@ -23,7 +24,7 @@ class Config {
 	 * @param string $default default value to use
 	 * @return string retrieved value or default
 	 */
-	public static function get($key, $default) {
+	public static function get(string $key, string $default): string {
 		return \OC::$server->getConfig()->getUserValue(\OC_User::getUser(), 'epubreader', $key, $default);
 	}
 
@@ -34,7 +35,7 @@ class Config {
 	 * @param string $value value to use
 	 * @return bool success
 	 */
-	public static function set($key, $value) {
+	public static function set(string $key, string $value): bool {
 		return \OC::$server->getConfig()->setUserValue(\OC_User::getUser(), 'epubreader', $key, $value);
 	}
 
@@ -45,7 +46,7 @@ class Config {
 	 * @param string $default default value to use
 	 * @return string retrieved value or default
 	 */
-	public static function getApp($key, $default) {
+	public static function getApp(string $key, string $default): string {
 		return \OC::$server->getConfig()->getAppValue('epubreader', $key, $default);
 	}
 
@@ -56,7 +57,7 @@ class Config {
 	 * @param string $value value to use
 	 * @return bool success
 	 */
-	public static function setApp($key, $value) {
+	public static function setApp(string $key, string $value): bool {
 		return \OC::$server->getConfig()->setAppValue('epubreader', $key, $value);
 	}
 }

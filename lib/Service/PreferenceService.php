@@ -11,6 +11,7 @@
 namespace OCA\Epubreader\Service;
 
 use OCA\Epubreader\Db\PreferenceMapper;
+use OCA\Epubreader\Db\ReaderEntity;
 
 class PreferenceService extends Service {
 
@@ -18,7 +19,7 @@ class PreferenceService extends Service {
 	// value 0 to indicate a default preference
 	public const DEFAULTS = 0;
 
-	private $preferenceMapper;
+	private PreferenceMapper $preferenceMapper;
 
 	/**
 	 * @param PreferenceMapper $preferenceMapper
@@ -36,11 +37,11 @@ class PreferenceService extends Service {
 	 *
 	 * @param string $scope
 	 * @param int $fileId
-	 * @param string $name
+	 * @param ?string $name
 	 *
 	 * @return array
 	 */
-	public function get($scope, $fileId, $name = null) {
+	public function get(string $scope, int $fileId, ?string $name = null): array {
 		$result = $this->preferenceMapper->get($scope, $fileId, $name);
 		return array_map(
 			function ($entity) {
@@ -58,10 +59,8 @@ class PreferenceService extends Service {
 	 * @param int $fileId
 	 * @param string $name
 	 * @param string $value
-	 *
-	 * @return array
 	 */
-	public function set($scope, $fileId, $name, $value) {
+	public function set(string $scope, int $fileId, string $name, string $value): ReaderEntity {
 		return $this->preferenceMapper->set($scope, $fileId, $name, $value);
 	}
 
@@ -69,11 +68,9 @@ class PreferenceService extends Service {
 	 * @brief get default preference
 	 *
 	 * @param string $scope
-	 * @param string $name
-	 *
-	 * @return array
+	 * @param ?string $name
 	 */
-	public function getDefault($scope, $name = null) {
+	public function getDefault(string $scope, ?string $name = null): array {
 		return $this->get($scope, static::DEFAULTS, $name);
 	}
 
@@ -83,10 +80,8 @@ class PreferenceService extends Service {
 	 * @param string $scope
 	 * @param string $name
 	 * @param string $value
-	 *
-	 * @return array
 	 */
-	public function setDefault($scope, $name, $value) {
+	public function setDefault($scope, $name, $value): ReaderEntity {
 		return $this->preferenceMapper->set($scope, static::DEFAULTS, $name, $value);
 	}
 
@@ -95,10 +90,10 @@ class PreferenceService extends Service {
 	 *
 	 * @param string $scope
 	 * @param int $fileId
-	 * @param string $name
+	 * @param ?string $name
 	 *
 	 */
-	public function delete($scope, $fileId, $name) {
+	public function delete(string $scope, int $fileId, ?string $name = null): void {
 		foreach($this->preferenceMapper->get($scope, $fileId, $name) as $preference) {
 			$this->preferenceMapper->delete($preference);
 		}
@@ -108,10 +103,10 @@ class PreferenceService extends Service {
 	 * @brief delete default
 	 *
 	 * @param string $scope
-	 * @param string $name
+	 * @param ?string $name
 	 *
 	 */
-	public function deleteDefault($scope, $name) {
+	public function deleteDefault(string $scope, ?string $name = null): void {
 		$this->delete($scope, static::DEFAULTS, $name);
 	}
 }

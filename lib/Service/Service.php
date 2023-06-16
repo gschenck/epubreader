@@ -13,8 +13,7 @@ namespace OCA\Epubreader\Service;
 use OCA\Epubreader\Db\ReaderMapper;
 
 abstract class Service {
-
-	protected $mapper;
+	protected ReaderMapper $mapper;
 
 	public function __construct(ReaderMapper $mapper) {
 		$this->mapper = $mapper;

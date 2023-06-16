@@ -16,10 +16,9 @@ use OCP\IURLGenerator;
 use OCP\Settings\IIconSection;
 
 class PersonalSection implements IIconSection {
-	/** @var IURLGenerator */
-	private $urlGenerator;
-	/** @var IL10N */
-	private $l;
+
+	private IURLGenerator $urlGenerator;
+	private IL10N $l;
 
 	public function __construct(IURLGenerator $urlGenerator, IL10N $l) {
 		$this->urlGenerator = $urlGenerator;
@@ -29,18 +28,18 @@ class PersonalSection implements IIconSection {
 	/**
 	 * returns the relative path to an 16*16 icon describing the section.
 	 *
-	 * @returns string
+	 * @return string
 	 */
-	public function getIcon() {
+	public function getIcon(): string {
 		return $this->urlGenerator->imagePath('epubreader', 'app.svg');
 	}
 
 	/**
 	 * returns the ID of the section. It is supposed to be a lower case string,
 	 *
-	 * @returns string
+	 * @return string
 	 */
-	public function getID() {
+	public function getID(): string {
 		return 'epubreader';
 	}
 
@@ -49,7 +48,7 @@ class PersonalSection implements IIconSection {
 	 *
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->l->t('EPUB/CBZ/PDF ebook reader');
 	}
 
@@ -58,7 +57,7 @@ class PersonalSection implements IIconSection {
 	 *
 	 * @return int
 	 */
-	public function getPriority() {
+	public function getPriority(): int {
 		return 20;
 	}
 }

@@ -12,28 +12,24 @@ namespace OCA\Epubreader\Controller;
 
 use OCA\Epubreader\Service\PreferenceService;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
-
-use OCP\IURLGenerator;
 
 class PreferenceController extends Controller {
 
-	private $urlGenerator;
-	private $preferenceService;
+	private PreferenceService $preferenceService;
 
 	/**
 	 * @param string $AppName
 	 * @param IRequest $request
-	 * @param IURLGenerator $urlGenerator
 	 * @param PreferenceService $preferenceService
 	 */
-	public function __construct($AppName,
+	public function __construct(
+		string $AppName,
 		IRequest $request,
-		IURLGenerator $urlGenerator,
-		PreferenceService $preferenceService) {
-
+		PreferenceService $preferenceService
+	) {
 		parent::__construct($AppName, $request);
-		$this->urlGenerator = $urlGenerator;
 		$this->preferenceService = $preferenceService;
 	}
 
@@ -45,12 +41,10 @@ class PreferenceController extends Controller {
 	 *
 	 * @param string $scope
 	 * @param int $fileId
-	 * @param string $name if null, return all preferences for $scope + $fileId
-	 *
-	 * @return array|\OCP\AppFramework\Http\JSONResponse
+	 * @param ?string $name if null, return all preferences for $scope + $fileId
 	 */
-	public function get($scope, $fileId, $name) {
-		return $this->preferenceService->get($scope, $fileId, $name);
+	public function get(string $scope, int $fileId, ?string $name = null): JSONResponse {
+		return new JSONResponse($this->preferenceService->get($scope, $fileId, $name));
 	}
 
 	/**
@@ -66,8 +60,8 @@ class PreferenceController extends Controller {
 	 *
 	 * @return array|\OCP\AppFramework\Http\JSONResponse
 	 */
-	public function set($scope, $fileId, $name, $value) {
-		return $this->preferenceService->set($scope, $fileId, $name, $value);
+	public function set(string $scope, int $fileId, string $name, string $value) {
+		return new JSONResponse($this->preferenceService->set($scope, $fileId, $name, $value));
 	}
 
 
@@ -79,11 +73,9 @@ class PreferenceController extends Controller {
 	 *
 	 * @param string $scope
 	 * @param string $name if null, return all default preferences for scope
-	 *
-	 * @return array|\OCP\AppFramework\Http\JSONResponse
 	 */
-	public function getDefault($scope, $name) {
-		return $this->preferenceService->getDefault($scope, $name);
+	public function getDefault(string $scope, string $name): JSONResponse {
+		return new JSONResponse($this->preferenceService->getDefault($scope, $name));
 	}
 
 	/**
@@ -95,11 +87,9 @@ class PreferenceController extends Controller {
 	 * @param string $scope
 	 * @param string $name
 	 * @param string $value
-	 *
-	 * @return array|\OCP\AppFramework\Http\JSONResponse
 	 */
-	public function setDefault($scope, $name, $value) {
-		return $this->preferenceService->setDefault($scope, $name, $value);
+	public function setDefault(string $scope, string $name, string $value): JSONResponse {
+		return new JSONResponse($this->preferenceService->setDefault($scope, $name, $value));
 	}
 
 	/**
@@ -108,20 +98,18 @@ class PreferenceController extends Controller {
 	 * @param string $scope
 	 * @param int $fileId
 	 * @param string $name
-	 *
 	 */
-	public function delete($scope, $fileId, $name) {
-		return $this->preferenceService->delete($scope, $fileId, $name);
+	public function delete(string $scope, int $fileId, string $name): void {
+		$this->preferenceService->delete($scope, $fileId, $name);
 	}
 
 	/**
 	 * @brief delete default preference
 	 *
-	 * @param $scope
-	 * @param $name
-	 *
+	 * @param string $scope
+	 * @param string $name
 	 */
-	public function deleteDefault($scope, $name) {
-		return $this->preferenceService->deleteDefault($scope, $name);
+	public function deleteDefault(string $scope, string $name): void {
+		$this->preferenceService->deleteDefault($scope, $name);
 	}
 }

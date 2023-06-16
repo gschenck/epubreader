@@ -13,32 +13,10 @@
 namespace OCA\Epubreader\Controller;
 
 use OCA\Epubreader\Config;
-use OCA\Epubreader\Service\PreferenceService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\JSONResponse;
-use OCP\IRequest;
-use OCP\IURLGenerator;
 
 class SettingsController extends Controller {
-
-	private $urlGenerator;
-	private $preferenceService;
-
-	/**
-	 * @param string $AppName
-	 * @param IRequest $request
-	 * @param IURLGenerator $urlGenerator
-	 * @param PreferenceService $preferenceService
-	 */
-	public function __construct($AppName,
-		IRequest $request,
-		IURLGenerator $urlGenerator,
-		PreferenceService $preferenceService) {
-
-		parent::__construct($AppName, $request);
-		$this->urlGenerator = $urlGenerator;
-		$this->preferenceService = $preferenceService;
-	}
 
 	/**
 	 * @brief set preference for file type association
@@ -48,11 +26,8 @@ class SettingsController extends Controller {
 	 * @param int $EpubEnable
 	 * @param int $PdfEnable
 	 * @param int $CbxEnable
-	 *
-	 * @return array|\OCP\AppFramework\Http\JSONResponse
 	 */
-	public function setPreference(int $EpubEnable, int $PdfEnable, int $CbxEnable) {
-
+	public function setPreference(int $EpubEnable, int $PdfEnable, int $CbxEnable): JSONResponse {
 		$l = \OC::$server->getL10N('epubreader');
 
 		Config::set('epub_enable', $EpubEnable);

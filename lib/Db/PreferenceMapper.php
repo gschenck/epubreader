@@ -11,14 +11,13 @@
 namespace OCA\Epubreader\Db;
 
 use OCA\Epubreader\Utility\Time;
-use OCP\AppFramework\Db\Entity;
 use OCP\IDBConnection;
 
 class PreferenceMapper extends ReaderMapper {
 
-	private $userId;
+	private string $userId;
 
-	public function __construct(IDBConnection $db, $UserId, Time $time) {
+	public function __construct(IDBConnection $db, string $UserId, Time $time) {
 		parent::__construct($db, 'reader_prefs', Preference::class, $time);
 		$this->userId = $UserId;
 	}
@@ -28,10 +27,11 @@ class PreferenceMapper extends ReaderMapper {
 	 *
 	 * @param string $scope
 	 * @param int $fileId
-	 * @param string $name
-	 * @return array
+	 * @param ?string $name
+	 *
+	 * @return ReaderEntity[]
 	 */
-	public function get($scope, $fileId, $name = null) {
+	public function get(string $scope, int $fileId, ?string $name = null): array {
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
 			->from($this->getTableName())
@@ -54,14 +54,13 @@ class PreferenceMapper extends ReaderMapper {
 	 * @param string $name
 	 * @param string $value
 	 *
-	 * @return Entity the newly created or updated preference
+	 * @return ReaderEntity the newly created or updated preference
 	 */
-	public function set($scope, $fileId, $name, $value) {
-
+	public function set(string $scope, int $fileId, string $name, string $value): ReaderEntity {
+		/** @var Preference[] $result */
 		$result = $this->get($scope, $fileId, $name);
 
 		if(empty($result)) {
-
 			$preference = new Preference();
 			$preference->setScope($scope);
 			$preference->setFileId($fileId);

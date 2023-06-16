@@ -17,11 +17,11 @@ use OCP\Settings\ISettings;
 
 class Personal implements ISettings {
 
-	private $userId;
-	private $configManager;
+	private string $userId;
+	private IConfig $configManager;
 
 	public function __construct(
-		$userId,
+		string $userId,
 		IConfig $configManager
 	) {
 		$this->userId = $userId;
@@ -32,13 +32,13 @@ class Personal implements ISettings {
 	 * @return TemplateResponse returns the instance with all parameters set, ready to be rendered
 	 * @since 9.1
 	 */
-	public function getForm() {
-
+	public function getForm(): TemplateResponse {
 		$parameters = [
 			'EpubEnable' => $this->configManager->getUserValue($this->userId, 'epubreader', 'epub_enable'),
 			'PdfEnable' => $this->configManager->getUserValue($this->userId, 'epubreader', 'pdf_enable'),
 			'CbxEnable' => $this->configManager->getUserValue($this->userId, 'epubreader', 'cbx_enable'),
 		];
+
 		return new TemplateResponse('epubreader', 'settings-personal', $parameters, '');
 	}
 
@@ -47,7 +47,7 @@ class Personal implements ISettings {
 	 *
 	 * @return TemplateResponse
 	 */
-	public function getPanel() {
+	public function getPanel(): TemplateResponse {
 		return $this->getForm();
 	}
 
@@ -55,7 +55,7 @@ class Personal implements ISettings {
 	 * @return string the section ID, e.g. 'sharing'
 	 * @since 9.1
 	 */
-	public function getSection() {
+	public function getSection(): string {
 		return 'epubreader';
 	}
 
@@ -64,7 +64,7 @@ class Personal implements ISettings {
 	 *
 	 * @return string
 	 */
-	public function getSectionID() {
+	public function getSectionID(): string {
 		return 'epubreader';
 	}
 
@@ -76,7 +76,7 @@ class Personal implements ISettings {
 	 * E.g.: 70
 	 * @since 9.1
 	 */
-	public function getPriority() {
+	public function getPriority(): int {
 		return 10;
 	}
 }

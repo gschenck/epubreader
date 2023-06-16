@@ -12,12 +12,11 @@ namespace OCA\Epubreader\Db;
 
 class Preference extends ReaderEntity implements \JsonSerializable {
 
-	protected $userId;  // user for whom this preference is valid
-	protected $scope;   // scope (default or specific renderer)
-	protected $fileId;  // file for which this preference is set
-	protected $name;    // preference name
-	protected $value;   // preference value
-	protected $lastModified;    // modification timestamp
+	protected string $userId; // user for whom this preference is valid
+	protected string $scope; // scope (default or specific renderer)
+	protected int $fileId; // file for which this preference is set
+	protected string $name; // preference name
+	protected string $value; // preference value
 
 	public function jsonSerialize(): array {
 		return [
@@ -30,58 +29,50 @@ class Preference extends ReaderEntity implements \JsonSerializable {
 		];
 	}
 
-	public function toService() {
+	public function toService(): array {
 		return [
 			'name' => $this->getName(),
 			'value' => $this->conditional_json_decode($this->getValue()),
 		];
 	}
 
-	public function getUserId() {
+	public function getUserId(): string {
 		return $this->userId;
 	}
 
-	public function setUserId($userId) {
+	public function setUserId(string $userId): void {
 		$this->userId = $userId;
 	}
 
-	public function getScope() {
+	public function getScope(): string {
 		return $this->scope;
 	}
 
-	public function setScope(string $scope) {
+	public function setScope(string $scope): void {
 		$this->scope = $scope;
 	}
 
-	public function getFileId() {
+	public function getFileId(): int {
 		return $this->fileId;
 	}
 
-	public function setFileId(int $fileId) {
+	public function setFileId(int $fileId): void {
 		$this->fileId = $fileId;
 	}
 
-	public function getName() {
+	public function getName(): string {
 		return $this->name;
 	}
 
-	public function setName(string $name) {
+	public function setName(string $name): void {
 		$this->name = $name;
 	}
 
-	public function getValue() {
+	public function getValue(): string {
 		return $this->value;
 	}
 
-	public function setValue(string $value) {
+	public function setValue(string $value): void {
 		$this->value = $value;
-	}
-
-	public function getLastModified() {
-		return $this->lastModified;
-	}
-
-	public function setLastModified($lastModified) {
-		$this->lastModified = $lastModified;
 	}
 }

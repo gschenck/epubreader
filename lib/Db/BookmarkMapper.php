@@ -11,31 +11,31 @@
 namespace OCA\Epubreader\Db;
 
 use OCA\Epubreader\Utility\Time;
-use OCP\AppFramework\Db\Entity;
 use OCP\IDBConnection;
 
 class BookmarkMapper extends ReaderMapper {
 
-	private $userId;
+	private string $userId;
 
 	/**
 	 * @param IDbConnection $db
-	 * @param $UserId
+	 * @param string $UserId
 	 * @param Time $time
 	 */
-	public function __construct(IDBConnection $db, $UserId, Time $time) {
+	public function __construct(IDBConnection $db, string $UserId, Time $time) {
 		parent::__construct($db, 'reader_bookmarks', Bookmark::class, $time);
-		/** @var int $UserId */
 		$this->userId = $UserId;
 	}
 
 	/**
 	 * @brief get bookmarks for $fileId+$userId(+$name)
-	 * @param $fileId
-	 * @param string $name
-	 * @return array
+	 * @param int $fileId
+	 * @param ?string $name
+	 * @param ?string $type
+	 *
+	 * @return ReaderEntity[]
 	 */
-	public function get(int $fileId, $name, $type = null) {
+	public function get(int $fileId, ?string $name = null, ?string $type = null): array {
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
 			->from($this->getTableName())
@@ -57,17 +57,18 @@ class BookmarkMapper extends ReaderMapper {
 	 * @brief write bookmark to database
 	 *
 	 * @param int $fileId
-	 * @param string $name
+	 * @param ?string $name
 	 * @param string $value
+	 * @param ?string $type
+	 * @param ?string $content
 	 *
-	 * @return Entity the newly created or updated bookmark
+	 * @return ReaderEntity the newly created or updated bookmark
 	 */
-	public function set($fileId, $name, $value, $type, $content = null) {
-
+	public function set(int $fileId, ?string $name = null, string $value, ?string $type = null, ?string $content = null): ReaderEntity {
+		/** @var Bookmark[] $result */
 		$result = $this->get($fileId, $name);
 
 		if(empty($result)) {
-
 			// anonymous bookmarks are named after their contents
 			if (null === $name) {
 				$name = $value;
@@ -84,13 +85,13 @@ class BookmarkMapper extends ReaderMapper {
 			$bookmark->setType($type);
 			$bookmark->setName($name);
 			$bookmark->setValue($value);
-			$bookmark->setContent($content);
+			$bookmark->setContent($content ?? '');
 
 			$this->insert($bookmark);
 		} else {
 			$bookmark = $result[0];
 			$bookmark->setValue($value);
-			$bookmark->setContent($content);
+			$bookmark->setContent($content ?? '');
 
 			$this->update($bookmark);
 		}

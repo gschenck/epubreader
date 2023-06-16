@@ -17,7 +17,7 @@ use OCP\Util;
 
 class Hooks {
 
-	public static function register() {
+	public static function register(): void {
 		Util::connectHook('\OCP\Config', 'js', 'OCA\Epubreader\Hooks', 'announce_settings');
 
 		\OC::$server->getRootFolder()->listen('\OC\Files', 'preDelete', function (Node $node) {
@@ -32,7 +32,7 @@ class Hooks {
 		});
 	}
 
-	public static function announce_settings(array $settings) {
+	public static function announce_settings(array $settings): void {
 		// Nextcloud encodes this as JSON, Owncloud does not (yet) (#75)
 		// TODO: rmeove this when Owncloud starts encoding oc_appconfig as JSON just like it already encodes most other properties
 		$isJson = self::isJson($settings['array']['oc_appconfig']);
@@ -43,27 +43,27 @@ class Hooks {
 		$settings['array']['oc_appconfig'] = ($isJson) ? json_encode($array) : $array;
 	}
 
-	protected static function deleteFile(IDBConnection $connection, $fileId) {
+	protected static function deleteFile(IDBConnection $connection, int $fileId): void {
 		$queryBuilder = $connection->getQueryBuilder();
 		$queryBuilder->delete('reader_bookmarks')->where('file_id = file_id')->setParameter('file_id', $fileId);
-		$queryBuilder->execute();
+		$queryBuilder->executeStatement();
 
 		$queryBuilder = $connection->getQueryBuilder();
 		$queryBuilder->delete('reader_prefs')->where('file_id = file_id')->setParameter('file_id', $fileId);
-		$queryBuilder->execute();
+		$queryBuilder->executeStatement();
 	}
 
-	protected static function deleteUser(IDBConnection $connection, $userId) {
+	protected static function deleteUser(IDBConnection $connection, string $userId): void {
 		$queryBuilder = $connection->getQueryBuilder();
 		$queryBuilder->delete('reader_bookmarks')->where('user_id = user_id')->setParameter('user_id', $userId);
-		$queryBuilder->execute();
+		$queryBuilder->executeStatement();
 
 		$queryBuilder = $connection->getQueryBuilder();
 		$queryBuilder->delete('reader_prefs')->where('user_id = user_id')->setParameter('user_id', $userId);
-		$queryBuilder->execute();
+		$queryBuilder->executeStatement();
 	}
 
-	private static function isJson($string) {
+	private static function isJson(mixed $string): bool {
 		return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
 	}
 }

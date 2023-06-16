@@ -12,12 +12,12 @@ namespace OCA\Epubreader\Db;
 
 use OCP\AppFramework\Db\Entity;
 
-class ReaderEntity extends Entity {
+abstract class ReaderEntity extends Entity {
 
-	private $lastModified;
+	protected int $lastModified; // modification timestamp
 
 	/* returns decoded json if input is json, otherwise returns input */
-	public static function conditional_json_decode($el) {
+	public static function conditional_json_decode(string $el): mixed {
 		$result = json_decode($el);
 		if (json_last_error() === JSON_ERROR_NONE) {
 			return $result;
@@ -26,12 +26,13 @@ class ReaderEntity extends Entity {
 		}
 	}
 
-	public function getLastModified() {
+	public function getLastModified(): int {
 		return $this->lastModified;
 	}
 
-	public function setLastModified(string $lastModified) {
+	public function setLastModified(int $lastModified): void {
 		$this->lastModified = $lastModified;
 	}
 
+	abstract public function toService(): array;
 }
