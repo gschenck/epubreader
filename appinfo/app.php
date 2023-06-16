@@ -12,7 +12,6 @@
 
 namespace OCA\Epubreader\AppInfo;
 
-use OCP\AppFramework\App;
 use OCP\Util;
 
 $l = \OC::$server->getL10N('epubreader');

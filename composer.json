@@ -1,0 +1,30 @@
+{
+	"name": "nextcloud/epubreader",
+	"description": "EPUB/CBZ/PDF ebook reader",
+	"version": "1.4.8",
+	"type": "project",
+	"license": "AGPL-3.0-or-later",
+	"require-dev": {
+		"nextcloud/ocp": "^21.0.0",
+		"psalm/phar": "^5.12.0",
+		"nextcloud/coding-standard": "^1.1.1"
+	},
+	"scripts": {
+		"lint": "find . -name \\*.php -not -path './vendor/*' -print0 | xargs -0 -n1 php -l",
+		"cs:check": "php-cs-fixer fix --dry-run --diff",
+		"cs:fix": "php-cs-fixer fix",
+		"psalm": "psalm.phar --threads=1 --no-cache",
+		"psalm:fix": "psalm.phar --no-cache --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType"
+	},
+	"autoload": {
+		"psr-4": {
+			"OCA\\Epubreader\\": "lib/",
+			"OC\\": "stubs/oc/"
+		}
+	},
+	"config": {
+		"platform": {
+			"php": "7.4"
+		}
+	}
+}

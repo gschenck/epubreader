@@ -15,8 +15,7 @@ namespace OCA\Epubreader;
 /**
  * Config class for Reader
  */
-class Config
-{
+class Config {
 	/**
 	 * @brief get user config value
 	 *

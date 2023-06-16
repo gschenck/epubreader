@@ -1,30 +1,30 @@
 <?php
- /** @var array $_ */
-  /** @var OCP\IURLGenerator $urlGenerator */
-  $urlGenerator = $_['urlGenerator'];
-  $downloadLink = $_['downloadLink'];
-  $fileId = $_['fileId'];
-  $fileName = $_['fileName'];
-  $fileType = $_['fileType'];
-  $scope = $_['scope'];
-  $cursor = $_['cursor'];
-  $defaults = $_['defaults'];
-  $preferences = $_['preferences'];
-  $metadata = $_['metadata'];
-  $annotations = $_['annotations'];
-  $title = htmlentities(basename($downloadLink));
-  $revision = '0072';
-  $version = \OC::$server->getAppManager()->getAppVersion('epubreader') . '.' . $revision;
+/** @var array $_ */
+/** @var OCP\IURLGenerator $urlGenerator */
+$urlGenerator = $_['urlGenerator'];
+$downloadLink = $_['downloadLink'];
+$fileId = $_['fileId'];
+$fileName = $_['fileName'];
+$fileType = $_['fileType'];
+$scope = $_['scope'];
+$cursor = $_['cursor'];
+$defaults = $_['defaults'];
+$preferences = $_['preferences'];
+$metadata = $_['metadata'];
+$annotations = $_['annotations'];
+$title = htmlentities(basename($downloadLink));
+$revision = '0072';
+$version = \OC::$server->getAppManager()->getAppVersion('epubreader') . '.' . $revision;
 
-  /* Mobile safari, the new IE6 */
-  $idevice = (strstr($_SERVER['HTTP_USER_AGENT'],'iPhone')
-    || strstr($_SERVER['HTTP_USER_AGENT'],'iPad')
-    || strstr($_SERVER['HTTP_USER_AGENT'],'iPod'));
+/* Mobile safari, the new IE6 */
+$idevice = (strstr($_SERVER['HTTP_USER_AGENT'], 'iPhone')
+	|| strstr($_SERVER['HTTP_USER_AGENT'], 'iPad')
+	|| strstr($_SERVER['HTTP_USER_AGENT'], 'iPod'));
 
-  /* Owncloud currently does not implement CSPv3, remove this test when it does */
-  $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
-    ? \OC::$server->getContentSecurityPolicyNonceManager()->getNonce()
-    : 'nonce_not_implemented';
+/* Owncloud currently does not implement CSPv3, remove this test when it does */
+$nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
+	? \OC::$server->getContentSecurityPolicyNonceManager()->getNonce()
+	: 'nonce_not_implemented';
 ?>
 
 <html dir="ltr">
@@ -32,7 +32,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <!-- <base href="<?php p($urlGenerator->linkTo('epubreader',''));?>"> -->
+        <!-- <base href="<?php p($urlGenerator->linkTo('epubreader', ''));?>"> -->
         <title>
             <?php p($title);?>
         </title>
@@ -113,21 +113,21 @@
                             <div class="control-group">
                                 <div>
                                     <input type="checkbox" id="custom_font_family" name="font_family">
-                                    <label for="custom_font_family"><?php print ($l->t ('custom font')); ?></label>
+                                    <label for="custom_font_family"><?php print($l->t('custom font')); ?></label>
                                     <select id="font_family" disabled="">
                                         <option value="verdana, trebuchet, droid sans serif, sans, sans-serif"> sans </option>
                                         <option value="georgia, times new roman, droid serif, serif"> serif </option>
-                                        <option value="monospace"><?php print ($l->t ('monospace')); ?> </option>
+                                        <option value="monospace"><?php print($l->t('monospace')); ?> </option>
                                     </select>
                                 </div>
                                 <div>
                                     <input type="checkbox" id="custom_font_size" name="font_size">
-                                    <label for="custom_font_size"><?php print ($l->t ('font size')); ?></label>
+                                    <label for="custom_font_size"><?php print($l->t('font size')); ?></label>
                                     <input type="number" id="font_size" value="100" min="50" max="150" disabled=""> %
                                 </div>
                                 <div>
                                     <input type="checkbox" id="custom_font_weight" name="font_weight">
-                                    <label for="custom_font_weight"><?php print ($l->t ('font weight')); ?></label>
+                                    <label for="custom_font_weight"><?php print($l->t('font weight')); ?></label>
                                     <select id="font_weight" disabled="">
                                         <option value="100">thin</option>
                                         <option value="200">extra light</option>
@@ -154,7 +154,7 @@
                                 <div class="control-group">
                                     <input type="checkbox" id="use_custom_colors" name="use_custom_colors">
                                     <label for="use_custom_colors">
-                                        <?php print ($l->t ('Use custom colors')); ?>;
+                                        <?php print($l->t('Use custom colors')); ?>;
                                     </label>
                                     <div class="center-box">
                                     <input type="color" id="day_color" value="#0a0a0a">
@@ -172,7 +172,7 @@
                                 <legend>night</legend>
                                 <div class="control-group">
                                     <div class="center-box nightshift">
-                                    <?php print ($l->t ('night mode can be toggled by clicking the book title')); ?>;
+                                    <?php print($l->t('night mode can be toggled by clicking the book title')); ?>;
                                     </div>
                                     <div class="center-box">
                                     <input type="color" id="night_color" value="#454545">
@@ -202,19 +202,19 @@
                             <div class="control-group">
                                 <input type="checkbox" id="sidebarReflow" name="sidebarReflow">
                                 <label for="sidebarReflow">
-                                    <?php print ($l->t ('reflow text when sidebars are open')); ?>;
+                                    <?php print($l->t('reflow text when sidebars are open')); ?>;
                                 </label>
                             </div>
                             <div class="control-group">
                                 <input type="checkbox" id="touch_nav" name="touch_nav">
                                 <label for="touch_nav">
-                                    <?php print ($l->t ('disable extra-wide page turn areas')); ?>;
+                                    <?php print($l->t('disable extra-wide page turn areas')); ?>;
                                 </label>
                             </div>
                             <div class="control-group">
                                 <input type="checkbox" id="page_turn_arrows" name="page_turn_arrows">
                                 <label for="page_turn_arrows">
-                                    <?php print ($l->t ('show page turn arrows')); ?>;
+                                    <?php print($l->t('show page turn arrows')); ?>;
                                 </label>
                             </div>
 

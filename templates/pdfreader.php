@@ -1,30 +1,30 @@
 <?php
- /** @var array $_ */
-  /** @var OCP\IURLGenerator $urlGenerator */
-  $urlGenerator = $_['urlGenerator'];
-  $downloadLink = $_['downloadLink'];
-  $fileId = $_['fileId'];
-  $fileName = $_['fileName'];
-  $fileType = $_['fileType'];
-  $scope = $_['scope'];
-  $cursor = $_['cursor'];
-  $defaults = $_['defaults'];
-  $preferences = $_['preferences'];
-  $metadata = $_['metadata'];
-  $annotations = $_['annotations'];
-  $title = htmlentities(basename($downloadLink));
-  $revision = '0130';
-  $version = \OC::$server->getAppManager()->getAppVersion('epubreader') . '.' . $revision;
+/** @var array $_ */
+/** @var OCP\IURLGenerator $urlGenerator */
+$urlGenerator = $_['urlGenerator'];
+$downloadLink = $_['downloadLink'];
+$fileId = $_['fileId'];
+$fileName = $_['fileName'];
+$fileType = $_['fileType'];
+$scope = $_['scope'];
+$cursor = $_['cursor'];
+$defaults = $_['defaults'];
+$preferences = $_['preferences'];
+$metadata = $_['metadata'];
+$annotations = $_['annotations'];
+$title = htmlentities(basename($downloadLink));
+$revision = '0130';
+$version = \OC::$server->getAppManager()->getAppVersion('epubreader') . '.' . $revision;
 
-  /* Mobile safari, the new IE6 */
-  $idevice = (strstr($_SERVER['HTTP_USER_AGENT'],'iPhone')
-    || strstr($_SERVER['HTTP_USER_AGENT'],'iPad')
-    || strstr($_SERVER['HTTP_USER_AGENT'],'iPod'));
+/* Mobile safari, the new IE6 */
+$idevice = (strstr($_SERVER['HTTP_USER_AGENT'], 'iPhone')
+	|| strstr($_SERVER['HTTP_USER_AGENT'], 'iPad')
+	|| strstr($_SERVER['HTTP_USER_AGENT'], 'iPod'));
 
-  /* Owncloud currently does not implement CSPv3, remove this test when it does */
-  $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
-    ? \OC::$server->getContentSecurityPolicyNonceManager()->getNonce()
-    : 'nonce_not_implemented';
+/* Owncloud currently does not implement CSPv3, remove this test when it does */
+$nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
+	? \OC::$server->getContentSecurityPolicyNonceManager()->getNonce()
+	: 'nonce_not_implemented';
 ?>
 
 <html dir="ltr">
@@ -32,7 +32,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <!-- <base href="<?php p($urlGenerator->linkTo('epubreader',''));?>"> -->
+        <!-- <base href="<?php p($urlGenerator->linkTo('epubreader', ''));?>"> -->
         <title>
             <?php p($title);?>
         </title>
