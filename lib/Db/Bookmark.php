@@ -55,7 +55,7 @@ class Bookmark extends ReaderEntity implements \JsonSerializable {
 		return $this->fileId;
 	}
 
-	public function setFileId($fileId) {
+	public function setFileId(int $fileId) {
 		$this->fileId = $fileId;
 	}
 
@@ -71,7 +71,7 @@ class Bookmark extends ReaderEntity implements \JsonSerializable {
 		return $this->name;
 	}
 
-	public function setName($name) {
+	public function setName(string $name) {
 		$this->name = $name;
 	}
 
@@ -79,7 +79,7 @@ class Bookmark extends ReaderEntity implements \JsonSerializable {
 		return $this->value;
 	}
 
-	public function setValue($value) {
+	public function setValue(string $value) {
 		$this->value = $value;
 	}
 

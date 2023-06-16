@@ -11,6 +11,7 @@
 namespace OCA\Epubreader\Db;
 
 use OCA\Epubreader\Utility\Time;
+use OCP\AppFramework\Db\Entity;
 use OCP\IDBConnection;
 
 class PreferenceMapper extends ReaderMapper {
@@ -53,7 +54,7 @@ class PreferenceMapper extends ReaderMapper {
 	 * @param string $name
 	 * @param string $value
 	 *
-	 * @return Preference the newly created or updated preference
+	 * @return Entity the newly created or updated preference
 	 */
 	public function set($scope, $fileId, $name, $value) {
 

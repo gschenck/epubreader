@@ -161,9 +161,12 @@ class PageController extends Controller {
 				->getId();
 		}
 
+		/** @var array<string> $pathInfo */
+		$pathInfo = pathInfo($filePath);
+
 		return [
-			'fileName' => pathInfo($filePath, PATHINFO_FILENAME),
-			'fileType' => strtolower(pathInfo($filePath, PATHINFO_EXTENSION)),
+			'fileName' => $pathInfo['filename'],
+			'fileType' => strtolower($pathInfo['extension']),
 			'fileId' => $fileId
 		];
 	}

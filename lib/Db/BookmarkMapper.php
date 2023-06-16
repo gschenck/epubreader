@@ -11,7 +11,7 @@
 namespace OCA\Epubreader\Db;
 
 use OCA\Epubreader\Utility\Time;
-
+use OCP\AppFramework\Db\Entity;
 use OCP\IDBConnection;
 
 class BookmarkMapper extends ReaderMapper {
@@ -60,7 +60,7 @@ class BookmarkMapper extends ReaderMapper {
 	 * @param string $name
 	 * @param string $value
 	 *
-	 * @return Bookmark the newly created or updated bookmark
+	 * @return Entity the newly created or updated bookmark
 	 */
 	public function set($fileId, $name, $value, $type, $content = null) {
 

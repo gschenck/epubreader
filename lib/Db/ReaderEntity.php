@@ -30,7 +30,7 @@ class ReaderEntity extends Entity {
 		return $this->lastModified;
 	}
 
-	public function setLastModified($lastModified) {
+	public function setLastModified(string $lastModified) {
 		$this->lastModified = $lastModified;
 	}
 
