@@ -34,10 +34,10 @@ class SettingsController extends Controller {
 		Config::set('pdf_enable', $PdfEnable);
 		Config::set('cbx_enable', $CbxEnable);
 
-		$response = array(
-			'data' => array('message' => $l->t('Settings updated successfully.')),
+		$response = [
+			'data' => ['message' => $l->t('Settings updated successfully.')],
 			'status' => 'success'
-		);
+		];
 
 		return new JSONResponse($response);
 	}

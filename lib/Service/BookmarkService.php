@@ -13,6 +13,9 @@ namespace OCA\Epubreader\Service;
 use OCA\Epubreader\Db\BookmarkMapper;
 use OCA\Epubreader\Db\ReaderEntity;
 
+/**
+ * @psalm-import-type SerializedEntity from ReaderEntity
+ */
 class BookmarkService extends Service {
 
 	// "bookmark" name to use for the cursor (current reading position)
@@ -34,11 +37,13 @@ class BookmarkService extends Service {
 	 * @param int $fileId
 	 * @param ?string $name
 	 * @param ?string $type
+	 *
+	 * @psalm-return SerializedEntity[]
 	 */
 	public function get($fileId, ?string $name = null, ?string $type = null): array {
 		$result = $this->bookmarkMapper->get($fileId, $name, $type);
 		return array_map(
-			function (ReaderEntity $entity) {
+			function (ReaderEntity $entity): array {
 				return $entity->toService();
 			}, $result);
 	}
@@ -62,9 +67,11 @@ class BookmarkService extends Service {
 	 * @brief get cursor (current position in book)
 	 *
 	 * @param int $fileId
+	 *
+	 * @psalm-return SerializedEntity
 	 */
 	public function getCursor(int $fileId): array {
-		$result = $this->get($fileId, static::CURSOR);
+		$result = $this->get($fileId, self::CURSOR);
 		if (count($result) === 1) {
 			return $result[0];
 		}
@@ -78,7 +85,7 @@ class BookmarkService extends Service {
 	 * @param string $value
 	 */
 	public function setCursor(int $fileId, string $value): ReaderEntity {
-		return $this->bookmarkMapper->set($fileId, static::CURSOR, $value, static::bookmark_type);
+		return $this->bookmarkMapper->set($fileId, self::CURSOR, $value, self::bookmark_type);
 	}
 
 	/**
@@ -100,6 +107,6 @@ class BookmarkService extends Service {
 	 * @param int $fileId
 	 */
 	public function deleteCursor(int $fileId): void {
-		$this->delete($fileId, static::CURSOR, static::bookmark_type);
+		$this->delete($fileId, self::CURSOR, self::bookmark_type);
 	}
 }

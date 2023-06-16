@@ -34,11 +34,6 @@
                 <referencedClass name="OC" />
             </errorLevel>
         </UndefinedClass>
-        <DeprecatedMethod>
-            <errorLevel type="info">
-                <referencedMethod name="OCP\Util::connectHook" />
-            </errorLevel>
-        </DeprecatedMethod>
         <PropertyNotSetInConstructor errorLevel="suppress" />
     </issueHandlers>
 </psalm>

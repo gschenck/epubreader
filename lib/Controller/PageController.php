@@ -75,15 +75,15 @@ class PageController extends Controller {
 		];
 
 		/**
-		 *  $fileInfo = [
-		 *      fileId => null,
-		 *      fileName => null,
-		 *      fileType => null
-		 *  ];
+		 * @var array{
+		 *   fileId: int,
+		 *   fileName: string,
+		 *   fileType: string
+		 * } $fileInfo
 		 */
-		$fileInfo = $this->getFileInfo($this->request->getParam('file'));
+		$fileInfo = $this->getFileInfo((string) $this->request->getParam('file'));
 		$fileId = $fileInfo['fileId'];
-		$type = $this->request->getParam('type');
+		$type = (string) $this->request->getParam('type');
 		$scope = $template = $templates[$type];
 
 		$params = [
@@ -139,7 +139,7 @@ class PageController extends Controller {
 			if ($type == FileInfo::TYPE_FOLDER && $node instanceof Folder) {
 				$query = [];
 				parse_str(parse_url($path, PHP_URL_QUERY), $query);
-				if (isset($query['path'])) {
+				if (isset($query['path']) && is_string($query['path'])) {
 					$node = $node->get($query['path']);
 				} else {
 					throw new NotFoundException('Shared file path or name not set');
@@ -150,11 +150,11 @@ class PageController extends Controller {
 		} else {
 			$filePath = $path;
 			$fileId = $this->rootFolder->getUserFolder($this->userId)
-				->get(preg_replace("/.*\/remote.php\/webdav(.*)/", "$1", rawurldecode($this->request->getParam('file'))))
+				->get(preg_replace("/.*\/remote.php\/webdav(.*)/", "$1", rawurldecode((string) $this->request->getParam('file'))))
 				->getId();
 		}
 
-		/** @var array<string> $pathInfo */
+		/** @var string[] $pathInfo */
 		$pathInfo = pathInfo($filePath);
 
 		return [

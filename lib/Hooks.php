@@ -18,6 +18,7 @@ use OCP\Util;
 class Hooks {
 
 	public static function register(): void {
+		/** @psalm-suppress DeprecatedMethod */
 		Util::connectHook('\OCP\Config', 'js', 'OCA\Epubreader\Hooks', 'announce_settings');
 
 		\OC::$server->getRootFolder()->listen('\OC\Files', 'preDelete', function (Node $node) {
@@ -35,12 +36,20 @@ class Hooks {
 	public static function announce_settings(array $settings): void {
 		// Nextcloud encodes this as JSON, Owncloud does not (yet) (#75)
 		// TODO: rmeove this when Owncloud starts encoding oc_appconfig as JSON just like it already encodes most other properties
-		$isJson = self::isJson($settings['array']['oc_appconfig']);
-		$array = ($isJson) ? json_decode($settings['array']['oc_appconfig'], true) : $settings['array']['oc_appconfig'];
-		$array['filesReader']['enableEpub'] = Config::get('epub_enable', 'true');
-		$array['filesReader']['enablePdf'] = Config::get('pdf_enable', 'true');
-		$array['filesReader']['enableCbx'] = Config::get('cbx_enable', 'true');
-		$settings['array']['oc_appconfig'] = ($isJson) ? json_encode($array) : $array;
+		if (array_key_exists('array', $settings) &&
+			is_array($settings['array']) &&
+			array_key_exists('oc_appconfig', $settings['array'])
+		) {
+			$isJson = self::isJson($settings['array']['oc_appconfig']);
+			/** @var array $array */
+			$array = ($isJson) ? json_decode((string) $settings['array']['oc_appconfig'], true) : $settings['array']['oc_appconfig'];
+			$array['filesReader'] = [
+				'enableEpub' => Config::get('epub_enable', 'true'),
+				'enablePdf' => Config::get('pdf_enable', 'true'),
+				'enableCbx' => Config::get('cbx_enable', 'true'),
+			];
+			$settings['array']['oc_appconfig'] = ($isJson) ? json_encode($array) : $array;
+		}
 	}
 
 	protected static function deleteFile(IDBConnection $connection, int $fileId): void {

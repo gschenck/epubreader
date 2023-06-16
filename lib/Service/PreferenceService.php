@@ -13,6 +13,9 @@ namespace OCA\Epubreader\Service;
 use OCA\Epubreader\Db\PreferenceMapper;
 use OCA\Epubreader\Db\ReaderEntity;
 
+/**
+ * @psalm-import-type SerializedEntity from ReaderEntity
+ */
 class PreferenceService extends Service {
 
 	// (ab)use the fact that $fileId never goes below 1 by using the
@@ -39,12 +42,12 @@ class PreferenceService extends Service {
 	 * @param int $fileId
 	 * @param ?string $name
 	 *
-	 * @return array
+	 * @psalm-return SerializedEntity
 	 */
 	public function get(string $scope, int $fileId, ?string $name = null): array {
 		$result = $this->preferenceMapper->get($scope, $fileId, $name);
 		return array_map(
-			function ($entity) {
+			function (ReaderEntity $entity): array {
 				return $entity->toService();
 			}, $result);
 	}
@@ -71,7 +74,7 @@ class PreferenceService extends Service {
 	 * @param ?string $name
 	 */
 	public function getDefault(string $scope, ?string $name = null): array {
-		return $this->get($scope, static::DEFAULTS, $name);
+		return $this->get($scope, self::DEFAULTS, $name);
 	}
 
 	/**
@@ -82,7 +85,7 @@ class PreferenceService extends Service {
 	 * @param string $value
 	 */
 	public function setDefault($scope, $name, $value): ReaderEntity {
-		return $this->preferenceMapper->set($scope, static::DEFAULTS, $name, $value);
+		return $this->preferenceMapper->set($scope, self::DEFAULTS, $name, $value);
 	}
 
 	/**
@@ -107,6 +110,6 @@ class PreferenceService extends Service {
 	 *
 	 */
 	public function deleteDefault(string $scope, ?string $name = null): void {
-		$this->delete($scope, static::DEFAULTS, $name);
+		$this->delete($scope, self::DEFAULTS, $name);
 	}
 }

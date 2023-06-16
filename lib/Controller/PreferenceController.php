@@ -57,10 +57,8 @@ class PreferenceController extends Controller {
 	 * @param int $fileId
 	 * @param string $name
 	 * @param string $value
-	 *
-	 * @return array|\OCP\AppFramework\Http\JSONResponse
 	 */
-	public function set(string $scope, int $fileId, string $name, string $value) {
+	public function set(string $scope, int $fileId, string $name, string $value): JSONResponse {
 		return new JSONResponse($this->preferenceService->set($scope, $fileId, $name, $value));
 	}
 
