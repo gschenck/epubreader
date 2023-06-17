@@ -1,0 +1,24 @@
+kind: pipeline
+name: default
+type: docker
+
+steps:
+  - name: php7.4
+    image: php:7.4-cli
+    commands:
+      - curl -sSLo /usr/local/bin/composer https://getcomposer.org/download/latest-stable/composer.phar
+      - chmod +x /usr/local/bin/composer
+      - composer install
+      - composer run lint
+      - composer run cs:check
+      - composer run psalm:check
+
+  - name: nextcloud
+    image: nextcloud:27.0.0
+    commands:
+      - curl -sSLo /usr/local/bin/composer https://getcomposer.org/download/latest-stable/composer.phar
+      - chmod +x /usr/local/bin/composer
+      - composer install
+      - composer run lint
+      - composer run cs:check
+      - composer run psalm:check
