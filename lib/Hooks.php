@@ -11,12 +11,36 @@
 namespace OCA\Epubreader;
 
 use OCA\Epubreader\AppInfo\Application;
+use OCP\Files\IRootFolder;
+use OCP\Files\Node;
 use OCP\IConfig;
 use OCP\IDBConnection;
+use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Server;
 
 class Hooks {
+
+	private IRootFolder $rootFolder;
+	private IDBConnection $dbConnection;
+
+	public function __construct(
+		IRootFolder $rootFolder,
+		IDBConnection $dbConnection,
+	) {
+		$this->rootFolder = $rootFolder;
+		$this->dbConnection = $dbConnection;
+	}
+
+	public function register(): void {
+		$this->rootFolder->listen('\OC\Files', 'preDelete', function (Node $node) {
+			$this->deleteFile($node->getId());
+		});
+
+		$this->rootFolder->listen('\OC\User', 'preDelete', function (IUser $user) {
+			$this->deleteUser($user->getUID());
+		});
+	}
 
 	public static function announce_settings(array $settings): void {
 		// Nextcloud encodes this as JSON, Owncloud does not (yet) (#75)
@@ -39,22 +63,22 @@ class Hooks {
 		}
 	}
 
-	protected static function deleteFile(IDBConnection $connection, int $fileId): void {
-		$queryBuilder = $connection->getQueryBuilder();
+	protected function deleteFile(int $fileId): void {
+		$queryBuilder = $this->dbConnection->getQueryBuilder();
 		$queryBuilder->delete('reader_bookmarks')->where('file_id = file_id')->setParameter('file_id', $fileId);
 		$queryBuilder->executeStatement();
 
-		$queryBuilder = $connection->getQueryBuilder();
+		$queryBuilder = $this->dbConnection->getQueryBuilder();
 		$queryBuilder->delete('reader_prefs')->where('file_id = file_id')->setParameter('file_id', $fileId);
 		$queryBuilder->executeStatement();
 	}
 
-	protected static function deleteUser(IDBConnection $connection, string $userId): void {
-		$queryBuilder = $connection->getQueryBuilder();
+	protected function deleteUser(string $userId): void {
+		$queryBuilder = $this->dbConnection->getQueryBuilder();
 		$queryBuilder->delete('reader_bookmarks')->where('user_id = user_id')->setParameter('user_id', $userId);
 		$queryBuilder->executeStatement();
 
-		$queryBuilder = $connection->getQueryBuilder();
+		$queryBuilder = $this->dbConnection->getQueryBuilder();
 		$queryBuilder->delete('reader_prefs')->where('user_id = user_id')->setParameter('user_id', $userId);
 		$queryBuilder->executeStatement();
 	}

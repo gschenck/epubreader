@@ -52,4 +52,7 @@ See [README] for more exhaustive information on features and potential misfeatur
 		<personal>OCA\Epubreader\Settings\Personal</personal>
 		<personal-section>OCA\Epubreader\Settings\PersonalSection</personal-section>
 	</settings>
+    <types>
+        <filesystem/>
+    </types>
 </info>

@@ -14,32 +14,27 @@ namespace OCA\Epubreader\AppInfo;
 
 use OCA\Epubreader\Hooks;
 use OCP\AppFramework\App;
-use OCP\AppFramework\Bootstrap\IBootContext;
-use OCP\AppFramework\Bootstrap\IBootstrap;
-use OCP\AppFramework\Bootstrap\IRegistrationContext;
+use OCP\Files\IRootFolder;
+use OCP\IDBConnection;
 use OCP\Util;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Application extends App implements IBootstrap {
+class Application extends App {
 
 	public const APP_ID = 'epubreader';
 
 	public function __construct() {
 		parent::__construct(self::APP_ID);
 
-		Util::addscript(self::APP_ID, 'plugin');
-	}
+		/** @psalm-suppress DeprecatedInterface */
+		$container = $this->getContainer();
+		$hooks = new Hooks(
+			$container->get(IRootFolder::class),
+			$container->get(IDBConnection::class),
+		);
+		$hooks->register();
 
-	public function boot(IBootContext $context): void {
 		/** @psalm-suppress DeprecatedMethod */
 		Util::connectHook('\OCP\Config', 'js', 'OCA\Epubreader\Hooks', 'announce_settings');
-
-		$context->injectFn(function (EventDispatcherInterface $dispatcher) {
-			$dispatcher->addListener('OC\Files::preDelete', [Hooks::class, 'deleteFile']);
-			$dispatcher->addListener('OC\User::preDelete', [Hooks::class, 'deleteUser']);
-		});
-	}
-
-	public function register(IRegistrationContext $context): void {
+		Util::addscript(self::APP_ID, 'plugin');
 	}
 }
