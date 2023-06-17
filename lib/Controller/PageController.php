@@ -17,6 +17,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Files\FileInfo;
 use OCP\Files\Folder;
+use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\IRequest;
@@ -141,6 +142,8 @@ class PageController extends Controller {
 				parse_str(parse_url($path, PHP_URL_QUERY), $query);
 				if (isset($query['path']) && is_string($query['path'])) {
 					$node = $node->get($query['path']);
+				} elseif (isset($query['files']) && is_string($query['files'])) {
+					$node = $node->get($query['files']);
 				} else {
 					throw new NotFoundException('Shared file path or name not set');
 				}
@@ -154,12 +157,14 @@ class PageController extends Controller {
 				->getId();
 		}
 
-		/** @var string[] $pathInfo */
 		$pathInfo = pathInfo($filePath);
+		if (!is_array($pathInfo)) {
+			throw new InvalidPathException("Can not get info for $filePath");
+		}
 
 		return [
 			'fileName' => $pathInfo['filename'],
-			'fileType' => strtolower($pathInfo['extension']),
+			'fileType' => strtolower($pathInfo['extension'] ?? ''),
 			'fileId' => $fileId
 		];
 	}

@@ -20,7 +20,7 @@ class Time {
 	 * @return int the current unix time in miliseconds
 	 */
 	public function getMicroTime(): int {
-		list($millisecs, $secs) = explode(" ", microtime());
+		list($millisecs, $secs) = explode(' ', microtime());
 		return (int) ($secs . substr($millisecs, 2, 6));
 	}
 }
