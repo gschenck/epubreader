@@ -10,31 +10,36 @@
 
 namespace OCA\Epubreader\Db;
 
-use OCP\IDBConnection;
-use OCP\AppFramework\Db\QBMapper;
-use OCP\AppFramework\Db\Entity;
-
 use OCA\Epubreader\Utility\Time;
+use OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\Db\QBMapper;
+use OCP\IDBConnection;
 
+/**
+ * @template-extends QBMapper<ReaderEntity>
+ */
 abstract class ReaderMapper extends QBMapper {
 
-    /**
-     * @var Time
-     */
-    private $time;
+	private Time $time;
 
-    public function __construct(IDBConnection $db, $table, $entity, Time $time) {
-        parent::__construct($db, $table, $entity);
-        $this->time = $time;
-    }
+	/**
+	 * @param IDBConnection $db Instance of the Db abstraction layer
+	 * @param string $table the name of the table. set this to allow entity
+	 * @param class-string<ReaderEntity> $entity the name of the entity that the sql should be mapped to queries without using sql
+	 * @param Time $time
+	 */
+	public function __construct(IDBConnection $db, string $table, string $entity, Time $time) {
+		parent::__construct($db, $table, $entity);
+		$this->time = $time;
+	}
 
-    public function update(Entity $entity): Entity {
-        $entity->setLastModified($this->time->getMicroTime());
-        return parent::update($entity);
-    }
+	public function update(Entity $entity): Entity {
+		$entity->setLastModified($this->time->getMicroTime());
+		return parent::update($entity);
+	}
 
-    public function insert(Entity $entity): Entity {
-        $entity->setLastModified($this->time->getMicroTime());
-        return parent::insert($entity);
-    }
-} 
+	public function insert(Entity $entity): Entity {
+		$entity->setLastModified($this->time->getMicroTime());
+		return parent::insert($entity);
+	}
+}

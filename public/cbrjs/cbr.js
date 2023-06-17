@@ -73,7 +73,7 @@ CBRJS.Reader = function(bookPath, _options) {
 		xhr.onload = function () {
 			if ((this.status === 200) && this.response) {
 				var done = false;
-				var ua = new bitjs.archive[archive_class](this.response, document.head.dataset.staticpath + 'vendor/bitjs/');
+				var ua = new bitjs.archive[archive_class](this.response, document.head.dataset.staticpath + 'public/bitjs/');
 
 				ua.addEventListener(bitjs.archive.UnarchiveEvent.Type.START, function (e) {
 					$progressbar.css('width', '0%');
@@ -276,7 +276,7 @@ ComicBook = (function ($) {
                 70: 'toggleFullscreen', // f
                 27: 'closeSidebar' // esc
             },
-            vendorPath: document.head.dataset.staticpath + 'vendor/',
+            vendorPath: document.head.dataset.staticpath + 'public/',
             forward_buffer: 3,
             session: {
                 getCursor: function() {},

@@ -10,61 +10,79 @@
 
 namespace OCA\Epubreader;
 
-use OCP\IDBConnection;
+use OCA\Epubreader\AppInfo\Application;
+use OCP\Files\IRootFolder;
 use OCP\Files\Node;
+use OCP\IConfig;
+use OCP\IDBConnection;
 use OCP\IUser;
-use OCP\Util;
-use \OC\User\User as User;
+use OCP\IUserSession;
+use OCP\Server;
 
 class Hooks {
 
-    public static function register() {
-        Util::connectHook('\OCP\Config', 'js', 'OCA\Epubreader\Hooks', 'announce_settings');
+	private IRootFolder $rootFolder;
+	private IDBConnection $dbConnection;
 
-        \OC::$server->getRootFolder()->listen('\OC\Files', 'preDelete', function (Node $node) {
-            $fileId = $node->getId();
-            $connection = \OC::$server->getDatabaseConnection();
-            self::deleteFile($connection, $fileId);
-        });
-        \OC::$server->getUserManager()->listen('\OC\User', 'preDelete', function (User $user) {
-            $userId = $user->getUID();
-            $connection = \OC::$server->getDatabaseConnection();
-            self::deleteUser($connection, $userId);
-        });
-    }
+	public function __construct(
+		IRootFolder $rootFolder,
+		IDBConnection $dbConnection,
+	) {
+		$this->rootFolder = $rootFolder;
+		$this->dbConnection = $dbConnection;
+	}
 
-    public static function announce_settings(array $settings) {
-        // Nextcloud encodes this as JSON, Owncloud does not (yet) (#75)
-        // TODO: rmeove this when Owncloud starts encoding oc_appconfig as JSON just like it already encodes most other properties
-        $isJson = self::isJson($settings['array']['oc_appconfig']);
-        $array = ($isJson) ? json_decode($settings['array']['oc_appconfig'], true) : $settings['array']['oc_appconfig'];
-        $array['filesReader']['enableEpub'] = Config::get('epub_enable', 'true');
-        $array['filesReader']['enablePdf'] = Config::get('pdf_enable', 'true');
-        $array['filesReader']['enableCbx'] = Config::get('cbx_enable', 'true');
-        $settings['array']['oc_appconfig'] = ($isJson) ? json_encode($array) : $array;
-    }
+	public function register(): void {
+		$this->rootFolder->listen('\OC\Files', 'preDelete', function (Node $node) {
+			$this->deleteFile($node->getId());
+		});
 
-    protected static function deleteFile(IDBConnection $connection, $fileId) {
-        $queryBuilder = $connection->getQueryBuilder();
-        $queryBuilder->delete('reader_bookmarks')->where('file_id = file_id')->setParameter('file_id', $fileId);
-        $queryBuilder->execute();
+		$this->rootFolder->listen('\OC\User', 'preDelete', function (IUser $user) {
+			$this->deleteUser($user->getUID());
+		});
+	}
 
-        $queryBuilder = $connection->getQueryBuilder();
-        $queryBuilder->delete('reader_prefs')->where('file_id = file_id')->setParameter('file_id', $fileId);
-        $queryBuilder->execute();
-    }
+	public static function announce_settings(array $settings): void {
+		// Nextcloud encodes this as JSON, Owncloud does not (yet) (#75)
+		// TODO: remove this when Owncloud starts encoding oc_appconfig as JSON just like it already encodes most other properties
+		$user = Server::get(IUserSession::class)->getUser();
+		if ($user &&
+			is_array($settings['array']) &&
+			array_key_exists('oc_appconfig', $settings['array'])
+		) {
+			$isJson = self::isJson($settings['array']['oc_appconfig']);
+			/** @var array $array */
+			$array = ($isJson) ? json_decode((string) $settings['array']['oc_appconfig'], true) : $settings['array']['oc_appconfig'];
+			$array['filesReader'] = [
+				'enableEpub' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'epub_enable', true),
+				'enablePdf' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'pdf_enable', true),
+				'enableCbx' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'cbx_enable', true),
+			];
+			$settings['array']['oc_appconfig'] = ($isJson) ? json_encode($array) : $array;
+		}
+	}
 
-    protected static function deleteUser(IDBConnection $connection, $userId) {
-        $queryBuilder = $connection->getQueryBuilder();
-        $queryBuilder->delete('reader_bookmarks')->where('user_id = user_id')->setParameter('user_id', $userId);
-        $queryBuilder->execute();
+	protected function deleteFile(int $fileId): void {
+		$queryBuilder = $this->dbConnection->getQueryBuilder();
+		$queryBuilder->delete('reader_bookmarks')->where('file_id = file_id')->setParameter('file_id', $fileId);
+		$queryBuilder->executeStatement();
 
-        $queryBuilder = $connection->getQueryBuilder();
-        $queryBuilder->delete('reader_prefs')->where('user_id = user_id')->setParameter('user_id', $userId); 
-        $queryBuilder->execute();
-    }
+		$queryBuilder = $this->dbConnection->getQueryBuilder();
+		$queryBuilder->delete('reader_prefs')->where('file_id = file_id')->setParameter('file_id', $fileId);
+		$queryBuilder->executeStatement();
+	}
 
-    private static function isJson($string) {
-        return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
-    }
+	protected function deleteUser(string $userId): void {
+		$queryBuilder = $this->dbConnection->getQueryBuilder();
+		$queryBuilder->delete('reader_bookmarks')->where('user_id = user_id')->setParameter('user_id', $userId);
+		$queryBuilder->executeStatement();
+
+		$queryBuilder = $this->dbConnection->getQueryBuilder();
+		$queryBuilder->delete('reader_prefs')->where('user_id = user_id')->setParameter('user_id', $userId);
+		$queryBuilder->executeStatement();
+	}
+
+	private static function isJson(mixed $string): bool {
+		return is_string($string) && is_array(json_decode($string, true)) && json_last_error() == JSON_ERROR_NONE;
+	}
 }

@@ -11,17 +11,16 @@
 namespace OCA\Epubreader\Utility;
 
 class Time {
-    public function getTime() {
-        return time();
-    }
 
-    /**
-     *
-     * @return int the current unix time in miliseconds
-     */
-    public function getMicroTime() {
-        list($millisecs, $secs) = explode(" ", microtime());
-        return $secs . substr($millisecs, 2, 6);
-    }
+	public function getTime(): int {
+		return time();
+	}
 
-} 
+	/**
+	 * @return int the current unix time in miliseconds
+	 */
+	public function getMicroTime(): int {
+		list($millisecs, $secs) = explode(' ', microtime());
+		return (int) ($secs . substr($millisecs, 2, 6));
+	}
+}

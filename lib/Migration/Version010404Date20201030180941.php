@@ -19,16 +19,15 @@ class Version010404Date20201030180941 extends SimpleMigrationStep {
 	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
 	 * @param array $options
 	 */
-	public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
+	public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
 	}
 
 	/**
 	 * @param IOutput $output
 	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
 	 * @param array $options
-	 * @return null|ISchemaWrapper
 	 */
-	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options) {
+	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 
@@ -138,6 +137,6 @@ class Version010404Date20201030180941 extends SimpleMigrationStep {
 	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
 	 * @param array $options
 	 */
-	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
+	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
 	}
 }

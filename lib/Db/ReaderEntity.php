@@ -12,28 +12,44 @@ namespace OCA\Epubreader\Db;
 
 use OCP\AppFramework\Db\Entity;
 
-class ReaderEntity extends Entity {
+/**
+ * @psalm-type SerializedEntity = array<string|int|array>
+ */
+abstract class ReaderEntity extends Entity {
 
-    /* returns decoded json if input is json, otherwise returns input */
-    public static function conditional_json_decode($el) {
-        $result = json_decode($el);
-        if (json_last_error() === JSON_ERROR_NONE) {
-            return $result;
-        } else {
-            return $el;
-        }
-    }
+	protected int $lastModified; // modification timestamp
 
-/*
-    public function toService() {
-        return [
-            'name' => $this->getName(),
-            'type' => $this->getType(),
-            'value' => $this->conditional_json_decode($this->getValue()),
-            'content' => $this->conditional_json_decode($this->getContent()),
-            'lastModified' => $this->getLastModified(),
-        ];
-    }
-*/
+	/**
+	 * returns decoded json if input is json, otherwise returns input
+	 *
+	 * @return string|array
+	 */
+	public function conditional_json_decode(string $el): mixed {
+		/** @var array $result */
+		$result = json_decode($el);
+		if (json_last_error() === JSON_ERROR_NONE) {
+			return $result;
+		} else {
+			return $el;
+		}
+	}
+
+	public function getLastModified(): int {
+		return $this->lastModified;
+	}
+
+	public function setLastModified(int $lastModified): void {
+		$this->lastModified = $lastModified;
+		$this->markFieldUpdated('lastModified');
+	}
+
+	/**
+	 * @psalm-return SerializedEntity
+	 */
+	abstract public function toService(): array;
+
+	/**
+	 * @psalm-return SerializedEntity
+	 */
+	abstract public function jsonSerialize(): array;
 }
-
