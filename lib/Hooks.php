@@ -47,7 +47,6 @@ class Hooks {
 		// TODO: remove this when Owncloud starts encoding oc_appconfig as JSON just like it already encodes most other properties
 		$user = Server::get(IUserSession::class)->getUser();
 		if ($user &&
-			array_key_exists('array', $settings) &&
 			is_array($settings['array']) &&
 			array_key_exists('oc_appconfig', $settings['array'])
 		) {
@@ -84,6 +83,6 @@ class Hooks {
 	}
 
 	private static function isJson(mixed $string): bool {
-		return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
+		return is_string($string) && is_array(json_decode($string, true)) && json_last_error() == JSON_ERROR_NONE;
 	}
 }

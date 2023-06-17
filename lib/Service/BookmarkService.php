@@ -19,8 +19,8 @@ use OCA\Epubreader\Db\ReaderEntity;
 class BookmarkService extends Service {
 
 	// "bookmark" name to use for the cursor (current reading position)
-	public const CURSOR = '__CURSOR__';
-	public const bookmark_type = 'bookmark';
+	private const CURSOR = '__CURSOR__';
+	private const BOOKMARK_TYPE = 'bookmark';
 
 	private BookmarkMapper $bookmarkMapper;
 
@@ -85,7 +85,7 @@ class BookmarkService extends Service {
 	 * @param string $value
 	 */
 	public function setCursor(int $fileId, string $value): ReaderEntity {
-		return $this->bookmarkMapper->set($fileId, self::CURSOR, $value, self::bookmark_type);
+		return $this->bookmarkMapper->set($fileId, self::CURSOR, $value, self::BOOKMARK_TYPE);
 	}
 
 	/**
@@ -107,6 +107,6 @@ class BookmarkService extends Service {
 	 * @param int $fileId
 	 */
 	public function deleteCursor(int $fileId): void {
-		$this->delete($fileId, self::CURSOR, self::bookmark_type);
+		$this->delete($fileId, self::CURSOR, self::BOOKMARK_TYPE);
 	}
 }

@@ -20,7 +20,7 @@ class PreferenceService extends Service {
 
 	// (ab)use the fact that $fileId never goes below 1 by using the
 	// value 0 to indicate a default preference
-	public const DEFAULTS = 0;
+	private const DEFAULTS = 0;
 
 	private PreferenceMapper $preferenceMapper;
 
