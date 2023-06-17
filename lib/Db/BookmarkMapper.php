@@ -65,7 +65,6 @@ class BookmarkMapper extends ReaderMapper {
 	 * @return ReaderEntity the newly created or updated bookmark
 	 */
 	public function set(int $fileId, string $name, string $value, ?string $type = null, ?string $content = null): ReaderEntity {
-		/** @var Bookmark[] $result */
 		$result = $this->get($fileId, $name);
 
 		if(empty($result)) {
@@ -88,12 +87,14 @@ class BookmarkMapper extends ReaderMapper {
 			$bookmark->setContent($content ?? '');
 
 			$this->insert($bookmark);
-		} else {
+		} elseif ($result[0] instanceof Bookmark) {
 			$bookmark = $result[0];
 			$bookmark->setValue($value);
 			$bookmark->setContent($content ?? '');
 
 			$this->update($bookmark);
+		} else {
+			$bookmark = new Bookmark();
 		}
 
 		return $bookmark;

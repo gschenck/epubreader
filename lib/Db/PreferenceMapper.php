@@ -57,7 +57,6 @@ class PreferenceMapper extends ReaderMapper {
 	 * @return ReaderEntity the newly created or updated preference
 	 */
 	public function set(string $scope, int $fileId, string $name, string $value): ReaderEntity {
-		/** @var Preference[] $result */
 		$result = $this->get($scope, $fileId, $name);
 
 		if(empty($result)) {
@@ -69,11 +68,13 @@ class PreferenceMapper extends ReaderMapper {
 			$preference->setValue($value);
 
 			$this->insert($preference);
-		} else {
+		} elseif ($result[0] instanceof Preference) {
 			$preference = $result[0];
 			$preference->setValue($value);
 
 			$this->update($preference);
+		} else {
+			$preference = new Preference();
 		}
 
 		return $preference;
