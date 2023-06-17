@@ -39,7 +39,7 @@ class Hooks {
 		}
 	}
 
-	protected function deleteFile(IDBConnection $connection, int $fileId): void {
+	protected static function deleteFile(IDBConnection $connection, int $fileId): void {
 		$queryBuilder = $connection->getQueryBuilder();
 		$queryBuilder->delete('reader_bookmarks')->where('file_id = file_id')->setParameter('file_id', $fileId);
 		$queryBuilder->executeStatement();
@@ -49,7 +49,7 @@ class Hooks {
 		$queryBuilder->executeStatement();
 	}
 
-	protected function deleteUser(IDBConnection $connection, string $userId): void {
+	protected static function deleteUser(IDBConnection $connection, string $userId): void {
 		$queryBuilder = $connection->getQueryBuilder();
 		$queryBuilder->delete('reader_bookmarks')->where('user_id = user_id')->setParameter('user_id', $userId);
 		$queryBuilder->executeStatement();
