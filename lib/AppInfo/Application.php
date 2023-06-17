@@ -27,10 +27,11 @@ class Application extends App {
 
 		/** @psalm-suppress DeprecatedInterface */
 		$container = $this->getContainer();
-		$hooks = new Hooks(
-			$container->get(IRootFolder::class),
-			$container->get(IDBConnection::class),
-		);
+		/** @var IRootFolder $rootFolder */
+		$rootFolder = $container->get(IRootFolder::class);
+		/** @var IDBConnection $dbConnection */
+		$dbConnection = $container->get(IDBConnection::class);
+		$hooks = new Hooks($rootFolder, $dbConnection);
 		$hooks->register();
 
 		/** @psalm-suppress DeprecatedMethod */

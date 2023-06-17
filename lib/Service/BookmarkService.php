@@ -54,12 +54,12 @@ class BookmarkService extends Service {
 	 * position type is format-dependent, eg CFI for epub, page number for CBR/CBZ, etc
 	 *
 	 * @param int $fileId
-	 * @param ?string $name
+	 * @param string $name
 	 * @param string $value
 	 * @param ?string $type
 	 * @param ?string $content
 	 */
-	public function set(int $fileId, ?string $name = null, string $value, ?string $type = null, ?string $content = null): ReaderEntity {
+	public function set(int $fileId, string $name, string $value, ?string $type = null, ?string $content = null): ReaderEntity {
 		return $this->bookmarkMapper->set($fileId, $name, $value, $type, $content);
 	}
 

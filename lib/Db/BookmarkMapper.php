@@ -57,20 +57,20 @@ class BookmarkMapper extends ReaderMapper {
 	 * @brief write bookmark to database
 	 *
 	 * @param int $fileId
-	 * @param ?string $name
+	 * @param string $name
 	 * @param string $value
 	 * @param ?string $type
 	 * @param ?string $content
 	 *
 	 * @return ReaderEntity the newly created or updated bookmark
 	 */
-	public function set(int $fileId, ?string $name = null, string $value, ?string $type = null, ?string $content = null): ReaderEntity {
+	public function set(int $fileId, string $name, string $value, ?string $type = null, ?string $content = null): ReaderEntity {
 		/** @var Bookmark[] $result */
 		$result = $this->get($fileId, $name);
 
 		if(empty($result)) {
 			// anonymous bookmarks are named after their contents
-			if (null === $name) {
+			if (empty($name)) {
 				$name = $value;
 			}
 
