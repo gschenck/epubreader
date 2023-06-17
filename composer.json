@@ -17,12 +17,6 @@
 		"psalm": "psalm.phar --threads=1 --no-cache",
 		"psalm:fix": "psalm.phar --no-cache --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType"
 	},
-	"autoload": {
-		"psr-4": {
-			"OCA\\Epubreader\\": "lib/",
-			"OC\\": "stubs/oc/"
-		}
-	},
 	"config": {
 		"platform": {
 			"php": "7.4"
