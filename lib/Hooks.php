@@ -18,7 +18,7 @@ use OCP\Server;
 
 class Hooks {
 
-	public function announce_settings(array $settings): void {
+	public static function announce_settings(array $settings): void {
 		// Nextcloud encodes this as JSON, Owncloud does not (yet) (#75)
 		// TODO: remove this when Owncloud starts encoding oc_appconfig as JSON just like it already encodes most other properties
 		$user = Server::get(IUserSession::class)->getUser();
@@ -59,7 +59,7 @@ class Hooks {
 		$queryBuilder->executeStatement();
 	}
 
-	private function isJson(mixed $string): bool {
+	private static function isJson(mixed $string): bool {
 		return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
 	}
 }
