@@ -65,8 +65,6 @@ class PageController extends Controller {
 	/**
 	 * @PublicPage
 	 * @NoCSRFRequired
-	 *
-	 * @return TemplateResponse
 	 */
 	public function showReader(): TemplateResponse {
 		$templates = [
@@ -124,8 +122,8 @@ class PageController extends Controller {
 	 * (this should be abstracted away in OC/NC IMnsHO)
 	 *
 	 * @param string $path path-fragment from url
-	 * @return array
-	 * @throws NotFoundException
+	 *
+	 * @throws NotFoundException|InvalidPathException
 	 */
 	private function getFileInfo(string $path): array {
 		$count = 0;

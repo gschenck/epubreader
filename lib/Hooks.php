@@ -55,9 +55,9 @@ class Hooks {
 			/** @var array $array */
 			$array = ($isJson) ? json_decode((string) $settings['array']['oc_appconfig'], true) : $settings['array']['oc_appconfig'];
 			$array['filesReader'] = [
-				'enableEpub' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'epub_enable', 'true'),
-				'enablePdf' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'pdf_enable', 'true'),
-				'enableCbx' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'cbx_enable', 'true'),
+				'enableEpub' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'epub_enable', true),
+				'enablePdf' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'pdf_enable', true),
+				'enableCbx' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'cbx_enable', true),
 			];
 			$settings['array']['oc_appconfig'] = ($isJson) ? json_encode($array) : $array;
 		}

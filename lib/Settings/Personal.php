@@ -35,9 +35,9 @@ class Personal implements ISettings {
 	 */
 	public function getForm(): TemplateResponse {
 		$parameters = [
-			'EpubEnable' => $this->configManager->getUserValue($this->userId, Application::APP_ID, 'epub_enable'),
-			'PdfEnable' => $this->configManager->getUserValue($this->userId, Application::APP_ID, 'pdf_enable'),
-			'CbxEnable' => $this->configManager->getUserValue($this->userId, Application::APP_ID, 'cbx_enable'),
+			'EpubEnable' => $this->configManager->getUserValue($this->userId, Application::APP_ID, 'epub_enable', 'true'),
+			'PdfEnable' => $this->configManager->getUserValue($this->userId, Application::APP_ID, 'pdf_enable', 'true'),
+			'CbxEnable' => $this->configManager->getUserValue($this->userId, Application::APP_ID, 'cbx_enable', 'true'),
 		];
 
 		return new TemplateResponse(Application::APP_ID, 'settings-personal', $parameters, '');
