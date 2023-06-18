@@ -3,11 +3,9 @@ name: default
 type: docker
 
 steps:
-  - name: php7.4
-    image: php:7.4-cli
+  - name: nextcloud:21
+    image: nextcloud:21
     commands:
-      - apt-get update
-      - apt-get install -y unzip
       - curl -sSLo /usr/local/bin/composer https://getcomposer.org/download/latest-stable/composer.phar
       - chmod +x /usr/local/bin/composer
       - composer install
@@ -15,7 +13,7 @@ steps:
       - composer run cs:check
       - composer run psalm:check
 
-  - name: nextcloud
+  - name: nextcloud:27
     image: nextcloud:27.0.0
     commands:
       - curl -sSLo /usr/local/bin/composer https://getcomposer.org/download/latest-stable/composer.phar
