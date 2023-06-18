@@ -18,8 +18,6 @@ steps:
   - name: nextcloud
     image: nextcloud:27.0.0
     commands:
-      - apt-get update
-      - apt-get install -y unzip
       - curl -sSLo /usr/local/bin/composer https://getcomposer.org/download/latest-stable/composer.phar
       - chmod +x /usr/local/bin/composer
       - composer install
