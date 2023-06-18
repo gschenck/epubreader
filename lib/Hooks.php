@@ -24,10 +24,7 @@ class Hooks {
 	private IRootFolder $rootFolder;
 	private IDBConnection $dbConnection;
 
-	public function __construct(
-		IRootFolder $rootFolder,
-		IDBConnection $dbConnection,
-	) {
+	public function __construct(IRootFolder $rootFolder, IDBConnection $dbConnection) {
 		$this->rootFolder = $rootFolder;
 		$this->dbConnection = $dbConnection;
 	}

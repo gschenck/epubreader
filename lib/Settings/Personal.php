@@ -21,10 +21,7 @@ class Personal implements ISettings {
 	private string $userId;
 	private IConfig $configManager;
 
-	public function __construct(
-		string $userId,
-		IConfig $configManager
-	) {
+	public function __construct(string $userId, IConfig $configManager) {
 		$this->userId = $userId;
 		$this->configManager = $configManager;
 	}

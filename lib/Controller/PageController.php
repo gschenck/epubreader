@@ -51,7 +51,7 @@ class PageController extends Controller {
 		IManager $shareManager,
 		string $UserId,
 		BookmarkService $bookmarkService,
-		PreferenceService $preferenceService,
+		PreferenceService $preferenceService
 	) {
 		parent::__construct($AppName, $request);
 		$this->urlGenerator = $urlGenerator;
