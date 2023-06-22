@@ -11,13 +11,13 @@
 namespace OCA\Epubreader;
 
 use OCA\Epubreader\AppInfo\Application;
+use OCA\Epubreader\Utility\Server;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IUser;
 use OCP\IUserSession;
-use OCP\Server;
 
 class Hooks {
 
