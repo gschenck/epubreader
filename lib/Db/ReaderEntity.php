@@ -24,7 +24,7 @@ abstract class ReaderEntity extends Entity {
 	 *
 	 * @return string|array
 	 */
-	public function conditional_json_decode(string $el) {
+	public function conditional_json_decode(string $el): mixed {
 		/** @var array $result */
 		$result = json_decode($el);
 		if (json_last_error() === JSON_ERROR_NONE) {

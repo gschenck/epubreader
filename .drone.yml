@@ -3,8 +3,8 @@ name: default
 type: docker
 
 steps:
-  - name: nextcloud:21
-    image: nextcloud:21
+  - name: nextcloud:22
+    image: nextcloud:22
     commands:
       - curl -sSLo /usr/local/bin/composer https://getcomposer.org/download/latest-stable/composer.phar
       - chmod +x /usr/local/bin/composer

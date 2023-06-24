@@ -11,13 +11,13 @@
 namespace OCA\Epubreader;
 
 use OCA\Epubreader\AppInfo\Application;
+use OCA\Epubreader\Utility\Server;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IUser;
 use OCP\IUserSession;
-use OCP\Server;
 
 class Hooks {
 
@@ -79,10 +79,7 @@ class Hooks {
 		$queryBuilder->executeStatement();
 	}
 
-	/**
-	 * @param mixed $string
-	 */
-	private static function isJson($string): bool {
+	private static function isJson(mixed $string): bool {
 		return is_string($string) && is_array(json_decode($string, true)) && json_last_error() == JSON_ERROR_NONE;
 	}
 }
