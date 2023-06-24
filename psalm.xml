@@ -12,8 +12,8 @@
         <directory name="lib" />
         <directory name="stubs" />
         <ignoreFiles>
-			<directory name="vendor" />
-		</ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
     </projectFiles>
     <extraFiles>
         <directory name="vendor" />
