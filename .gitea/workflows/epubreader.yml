@@ -1,0 +1,31 @@
+name: epubreader
+on: [push]
+
+jobs:
+  nextcloud-22:
+    runs-on: ubuntu-latest
+    container: nextcloud:22
+    steps:
+      - run: apt-get update
+      - run: apt-get install -y git nodejs
+      - uses: actions/checkout@v3
+      - run: curl -sSLo /usr/local/bin/composer https://getcomposer.org/download/latest-stable/composer.phar
+      - run: chmod +x /usr/local/bin/composer
+      - run: composer install
+      - run: composer run lint
+      - run: composer run cs:check
+      - run: composer run psalm:check
+
+  nextcloud-27:
+    runs-on: ubuntu-latest
+    container: nextcloud:27.0.0
+    steps:
+      - run: apt-get update
+      - run: apt-get install -y git nodejs
+      - uses: actions/checkout@v3
+      - run: curl -sSLo /usr/local/bin/composer https://getcomposer.org/download/latest-stable/composer.phar
+      - run: chmod +x /usr/local/bin/composer
+      - run: composer install
+      - run: composer run lint
+      - run: composer run cs:check
+      - run: composer run psalm:check
