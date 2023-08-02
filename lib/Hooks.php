@@ -45,19 +45,19 @@ class Hooks
 	{
 		// Nextcloud encodes this as JSON, Owncloud does not (yet) (#75)
 		// TODO: remove this when Owncloud starts encoding oc_appconfig as JSON just like it already encodes most other properties
-		$user = Server::get(IUserSession::class)->getUser();
-		if ($user
-			&& is_array($settings['array'])
+		if (is_array($settings['array'])
 			&& array_key_exists('oc_appconfig', $settings['array'])
 		) {
 			$isJson = self::isJson($settings['array']['oc_appconfig']);
+			$user = Server::get(IUserSession::class)->getUser();
+			$userId = $user ? $user->getUID() : null;
 
 			/** @var array $array */
 			$array = ($isJson) ? json_decode((string) $settings['array']['oc_appconfig'], true) : $settings['array']['oc_appconfig'];
 			$array['filesReader'] = [
-				'enableEpub' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'epub_enable', true),
-				'enablePdf' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'pdf_enable', true),
-				'enableCbx' => Server::get(IConfig::class)->getUserValue($user->getUID(), Application::APP_ID, 'cbx_enable', true),
+				'enableEpub' => Server::get(IConfig::class)->getUserValue($userId, Application::APP_ID, 'epub_enable', true),
+				'enablePdf' => Server::get(IConfig::class)->getUserValue($userId, Application::APP_ID, 'pdf_enable', true),
+				'enableCbx' => Server::get(IConfig::class)->getUserValue($userId, Application::APP_ID, 'cbx_enable', true),
 			];
 			$settings['array']['oc_appconfig'] = ($isJson) ? json_encode($array) : $array;
 		}
