@@ -4,30 +4,27 @@ declare(strict_types=1);
 
 namespace OCA\Epubreader\Migration;
 
-use Closure;
 use OCP\DB\ISchemaWrapper;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
 
 /**
- * Auto-generated migration step
+ * Auto-generated migration step.
  */
-class Version010404Date20201030180941 extends SimpleMigrationStep {
-
+class Version010404Date20201030180941 extends SimpleMigrationStep
+{
 	/**
-	 * @param IOutput $output
-	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
-	 * @param array $options
+	 * @param \Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
 	 */
-	public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
+	public function preSchemaChange(IOutput $output, \Closure $schemaClosure, array $options): void
+	{
 	}
 
 	/**
-	 * @param IOutput $output
-	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
-	 * @param array $options
+	 * @param \Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
 	 */
-	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
+	public function changeSchema(IOutput $output, \Closure $schemaClosure, array $options): ?ISchemaWrapper
+	{
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 
@@ -129,14 +126,14 @@ class Version010404Date20201030180941 extends SimpleMigrationStep {
 			$table->addIndex(['user_id'], 'reader_prefs_user_id_index');
 			$table->addIndex(['scope'], 'reader_prefs_scope_index');
 		}
+
 		return $schema;
 	}
 
 	/**
-	 * @param IOutput $output
-	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
-	 * @param array $options
+	 * @param \Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
 	 */
-	public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
+	public function postSchemaChange(IOutput $output, \Closure $schemaClosure, array $options): void
+	{
 	}
 }

@@ -14,7 +14,7 @@ $metadata = $_['metadata'];
 $annotations = $_['annotations'];
 $title = htmlentities(basename($downloadLink));
 $revision = '0072';
-$version = \OC::$server->getAppManager()->getAppVersion('epubreader') . '.' . $revision;
+$version = \OC::$server->getAppManager()->getAppVersion('epubreader').'.'.$revision;
 
 /* Mobile safari, the new IE6 */
 $idevice = (strstr($_SERVER['HTTP_USER_AGENT'], 'iPhone')
@@ -28,38 +28,38 @@ $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
 ?>
 
 <html dir="ltr">
-<head class="session" data-nonce='<?php p($nonce);?>' data-downloadlink='<?php print_unescaped($downloadLink);?>' data-fileid='<?php print_unescaped($fileId);?>' data-filetype='<?php print_unescaped($fileType);?>' data-filename='<?php print_unescaped($fileName);?>' data-version='<?php print_unescaped($version);?>' data-basepath='<?php p($urlGenerator->linkToRoute('epubreader.page.showReader'));?>' data-staticpath='<?php p($urlGenerator->linkTo('epubreader', ''));?>' data-scope='<?php print_unescaped($scope);?>' data-cursor='<?php print_unescaped($cursor);?>' data-defaults='<?php print_unescaped($defaults);?>' data-preferences='<?php print_unescaped($preferences);?>' data-metadata='<?php print_unescaped($metadata);?>' data-annotations='<?php print_unescaped($annotations);?>'>
+<head class="session" data-nonce='<?php p($nonce); ?>' data-downloadlink='<?php print_unescaped($downloadLink); ?>' data-fileid='<?php print_unescaped($fileId); ?>' data-filetype='<?php print_unescaped($fileType); ?>' data-filename='<?php print_unescaped($fileName); ?>' data-version='<?php print_unescaped($version); ?>' data-basepath='<?php p($urlGenerator->linkToRoute('epubreader.page.showReader')); ?>' data-staticpath='<?php p($urlGenerator->linkTo('epubreader', '')); ?>' data-scope='<?php print_unescaped($scope); ?>' data-cursor='<?php print_unescaped($cursor); ?>' data-defaults='<?php print_unescaped($defaults); ?>' data-preferences='<?php print_unescaped($preferences); ?>' data-metadata='<?php print_unescaped($metadata); ?>' data-annotations='<?php print_unescaped($annotations); ?>'>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <!-- <base href="<?php p($urlGenerator->linkTo('epubreader', ''));?>"> -->
+        <!-- <base href="<?php p($urlGenerator->linkTo('epubreader', '')); ?>"> -->
         <title>
-            <?php p($title);?>
+            <?php p($title); ?>
         </title>
-        <link rel="shortcut icon" href="<?php p($urlGenerator->linkTo('epubreader', 'img/book.png')) ?>">
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/icomoon/style.css')) ?>?v=<?php p($version) ?>">
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/css/main.css')) ?>?v=<?php p($version) ?>">
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/css/sidebar.css')) ?>?v=<?php p($version) ?>">
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/css/popup.css')) ?>?v=<?php p($version) ?>">
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'js/lib/typedarray.min.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'js/lib/wgxpath.install.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/libs/jquery.min.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/bartaz/jquery.highlight.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/jquery/put-delete.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/sindresorhus/screenfull.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/libs/zip.min.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/epub.min.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/hooks.min.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/hooks/extensions/highlight.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/reader.min.js')) ?>?v=<?php p($version) ?>"> </script>
+        <link rel="shortcut icon" href="<?php p($urlGenerator->linkTo('epubreader', 'img/book.png')); ?>">
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/icomoon/style.css')); ?>?v=<?php p($version); ?>">
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/css/main.css')); ?>?v=<?php p($version); ?>">
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/css/sidebar.css')); ?>?v=<?php p($version); ?>">
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/css/popup.css')); ?>?v=<?php p($version); ?>">
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'js/lib/typedarray.min.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'js/lib/wgxpath.install.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/libs/jquery.min.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/bartaz/jquery.highlight.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/jquery/put-delete.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/sindresorhus/screenfull.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/libs/zip.min.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/epub.min.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/hooks.min.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/hooks/extensions/highlight.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/reader.min.js')); ?>?v=<?php p($version); ?>"> </script>
 
-        <?php if ($idevice): ?>
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/css/idevice.css')) ?>?v=<?php p($version) ?>">
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/bgrins/spectrum.js')) ?>?v=<?php p($version) ?>"> </script>
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/bgrins/spectrum.css')) ?>?v=<?php p($version) ?>">
-        <?php endif; ?>
+        <?php if ($idevice) { ?>
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/css/idevice.css')); ?>?v=<?php p($version); ?>">
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/bgrins/spectrum.js')); ?>?v=<?php p($version); ?>"> </script>
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/bgrins/spectrum.css')); ?>?v=<?php p($version); ?>">
+        <?php } ?>
 
-		<script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'js/ready.js')) ?>?v=<?php p($version) ?>"> </script>
+		<script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'js/ready.js')); ?>?v=<?php p($version); ?>"> </script>
     </head>
     <body>
         <div id="outerContainer">
@@ -113,21 +113,21 @@ $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
                             <div class="control-group">
                                 <div>
                                     <input type="checkbox" id="custom_font_family" name="font_family">
-                                    <label for="custom_font_family"><?php print($l->t('custom font')); ?></label>
+                                    <label for="custom_font_family"><?php echo $l->t('custom font'); ?></label>
                                     <select id="font_family" disabled="">
                                         <option value="verdana, trebuchet, droid sans serif, sans, sans-serif"> sans </option>
                                         <option value="georgia, times new roman, droid serif, serif"> serif </option>
-                                        <option value="monospace"><?php print($l->t('monospace')); ?> </option>
+                                        <option value="monospace"><?php echo $l->t('monospace'); ?> </option>
                                     </select>
                                 </div>
                                 <div>
                                     <input type="checkbox" id="custom_font_size" name="font_size">
-                                    <label for="custom_font_size"><?php print($l->t('font size')); ?></label>
+                                    <label for="custom_font_size"><?php echo $l->t('font size'); ?></label>
                                     <input type="number" id="font_size" value="100" min="50" max="150" disabled=""> %
                                 </div>
                                 <div>
                                     <input type="checkbox" id="custom_font_weight" name="font_weight">
-                                    <label for="custom_font_weight"><?php print($l->t('font weight')); ?></label>
+                                    <label for="custom_font_weight"><?php echo $l->t('font weight'); ?></label>
                                     <select id="font_weight" disabled="">
                                         <option value="100">thin</option>
                                         <option value="200">extra light</option>
@@ -154,7 +154,7 @@ $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
                                 <div class="control-group">
                                     <input type="checkbox" id="use_custom_colors" name="use_custom_colors">
                                     <label for="use_custom_colors">
-                                        <?php print($l->t('Use custom colors')); ?>;
+                                        <?php echo $l->t('Use custom colors'); ?>;
                                     </label>
                                     <div class="center-box">
                                     <input type="color" id="day_color" value="#0a0a0a">
@@ -172,7 +172,7 @@ $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
                                 <legend>night</legend>
                                 <div class="control-group">
                                     <div class="center-box nightshift">
-                                    <?php print($l->t('night mode can be toggled by clicking the book title')); ?>;
+                                    <?php echo $l->t('night mode can be toggled by clicking the book title'); ?>;
                                     </div>
                                     <div class="center-box">
                                     <input type="color" id="night_color" value="#454545">
@@ -202,19 +202,19 @@ $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
                             <div class="control-group">
                                 <input type="checkbox" id="sidebarReflow" name="sidebarReflow">
                                 <label for="sidebarReflow">
-                                    <?php print($l->t('reflow text when sidebars are open')); ?>;
+                                    <?php echo $l->t('reflow text when sidebars are open'); ?>;
                                 </label>
                             </div>
                             <div class="control-group">
                                 <input type="checkbox" id="touch_nav" name="touch_nav">
                                 <label for="touch_nav">
-                                    <?php print($l->t('disable extra-wide page turn areas')); ?>;
+                                    <?php echo $l->t('disable extra-wide page turn areas'); ?>;
                                 </label>
                             </div>
                             <div class="control-group">
                                 <input type="checkbox" id="page_turn_arrows" name="page_turn_arrows">
                                 <label for="page_turn_arrows">
-                                    <?php print($l->t('show page turn arrows')); ?>;
+                                    <?php echo $l->t('show page turn arrows'); ?>;
                                 </label>
                             </div>
 
@@ -234,7 +234,7 @@ $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
                 <div id="titlebar">
                     <div id="opener">
                         <a id="slider" class="icon-menu">
-                            <?php p($l->t("menu")); ?>
+                            <?php p($l->t('menu')); ?>
                         </a>
                     </div>
                     <div id="metainfo">
@@ -282,7 +282,7 @@ $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
                     </div>
                 </div>
                 <div id="loader">
-                    <img src="<?php p($urlGenerator->linkTo('epubreader', 'img/loading.gif')) ?>">
+                    <img src="<?php p($urlGenerator->linkTo('epubreader', 'img/loading.gif')); ?>">
                 </div>
 
                 <!-- /navigation + viewer -->

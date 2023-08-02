@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - Epubreader App
+ * ownCloud - Epubreader App.
  *
  * @author Frank de Lange
  * @copyright 2014,2018 Frank de Lange
@@ -16,12 +16,13 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
 use OCP\Settings\ISettings;
 
-class Personal implements ISettings {
-
+class Personal implements ISettings
+{
 	private string $userId;
 	private IConfig $configManager;
 
-	public function __construct(string $userId, IConfig $configManager) {
+	public function __construct(string $userId, IConfig $configManager)
+	{
 		$this->userId = $userId;
 		$this->configManager = $configManager;
 	}
@@ -30,7 +31,8 @@ class Personal implements ISettings {
 	 * @return TemplateResponse returns the instance with all parameters set, ready to be rendered
 	 * @since 9.1
 	 */
-	public function getForm(): TemplateResponse {
+	public function getForm(): TemplateResponse
+	{
 		$parameters = [
 			'EpubEnable' => $this->configManager->getUserValue($this->userId, Application::APP_ID, 'epub_enable', 'true'),
 			'PdfEnable' => $this->configManager->getUserValue($this->userId, Application::APP_ID, 'pdf_enable', 'true'),
@@ -41,11 +43,10 @@ class Personal implements ISettings {
 	}
 
 	/**
-	 * Print config section (ownCloud 10)
-	 *
-	 * @return TemplateResponse
+	 * Print config section (ownCloud 10).
 	 */
-	public function getPanel(): TemplateResponse {
+	public function getPanel(): TemplateResponse
+	{
 		return $this->getForm();
 	}
 
@@ -53,28 +54,29 @@ class Personal implements ISettings {
 	 * @return string the section ID, e.g. 'sharing'
 	 * @since 9.1
 	 */
-	public function getSection(): string {
+	public function getSection(): string
+	{
 		return Application::APP_ID;
 	}
 
 	/**
-	 * Get section ID (ownCloud 10)
-	 *
-	 * @return string
+	 * Get section ID (ownCloud 10).
 	 */
-	public function getSectionID(): string {
+	public function getSectionID(): string
+	{
 		return Application::APP_ID;
 	}
 
 	/**
 	 * @return int whether the form should be rather on the top or bottom of
-	 * the admin section. The forms are arranged in ascending order of the
-	 * priority values. It is required to return a value between 0 and 100.
+	 *             the admin section. The forms are arranged in ascending order of the
+	 *             priority values. It is required to return a value between 0 and 100.
 	 *
 	 * E.g.: 70
 	 * @since 9.1
 	 */
-	public function getPriority(): int {
+	public function getPriority(): int
+	{
 		return 10;
 	}
 }

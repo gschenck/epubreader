@@ -24,8 +24,8 @@ use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\Share\IManager;
 
-class PageController extends Controller {
-
+class PageController extends Controller
+{
 	private IURLGenerator $urlGenerator;
 	private IRootFolder $rootFolder;
 	private IManager $shareManager;
@@ -33,16 +33,6 @@ class PageController extends Controller {
 	private BookmarkService $bookmarkService;
 	private PreferenceService $preferenceService;
 
-	/**
-	 * @param string $AppName
-	 * @param IRequest $request
-	 * @param IURLGenerator $urlGenerator
-	 * @param IRootFolder $rootFolder
-	 * @param IManager $shareManager
-	 * @param string $UserId
-	 * @param BookmarkService $bookmarkService
-	 * @param PreferenceService $preferenceService
-	 */
 	public function __construct(
 		string $AppName,
 		IRequest $request,
@@ -66,21 +56,17 @@ class PageController extends Controller {
 	 * @PublicPage
 	 * @NoCSRFRequired
 	 */
-	public function showReader(): TemplateResponse {
+	public function showReader(): TemplateResponse
+	{
 		$templates = [
 			'application/epub+zip' => 'epubreader',
 			'application/x-cbr' => 'cbreader',
-			'application/pdf' => 'pdfreader'
+			'application/pdf' => 'pdfreader',
 		];
 
-		/**
-		 * @var array{
-		 *   fileId: int,
-		 *   fileName: string,
-		 *   fileType: string
-		 * } $fileInfo
-		 */
 		$fileInfo = $this->getFileInfo((string) $this->request->getParam('file'));
+
+		/** @var int $fileId */
 		$fileId = $fileInfo['fileId'];
 		$type = (string) $this->request->getParam('type');
 		$scope = $template = $templates[$type];
@@ -96,7 +82,7 @@ class PageController extends Controller {
 			'defaults' => $this->toJson($this->preferenceService->getDefault($scope)),
 			'preferences' => $this->toJson($this->preferenceService->get($scope, $fileId)),
 			'metadata' => $this->toJson([]),
-			'annotations' => $this->toJson($this->bookmarkService->get($fileId))
+			'annotations' => $this->toJson($this->bookmarkService->get($fileId)),
 		];
 
 		$policy = new ContentSecurityPolicy();
@@ -123,19 +109,20 @@ class PageController extends Controller {
 	 *
 	 * @param string $path path-fragment from url
 	 *
-	 * @throws NotFoundException|InvalidPathException
+	 * @throws InvalidPathException|NotFoundException
 	 */
-	private function getFileInfo(string $path): array {
+	private function getFileInfo(string $path): array
+	{
 		$count = 0;
-		$shareToken = preg_replace("/(?:\/index\.php)?\/s\/([A-Za-z0-9]{15,32})\/download.*/", "$1", $path, 1, $count);
+		$shareToken = preg_replace('/(?:\\/index\\.php)?\\/s\\/([A-Za-z0-9]{15,32})\\/download.*/', '$1', $path, 1, $count);
 
-		if ($count === 1) {
+		if (1 === $count) {
 			/* shared file or directory */
 			$node = $this->shareManager->getShareByToken($shareToken)->getNode();
 			$type = $node->getType();
 
 			/* shared directory, need file path to continue, */
-			if ($type == FileInfo::TYPE_FOLDER && $node instanceof Folder) {
+			if (FileInfo::TYPE_FOLDER == $type && $node instanceof Folder) {
 				$query = [];
 				parse_str(parse_url($path, PHP_URL_QUERY), $query);
 				if (isset($query['path']) && is_string($query['path'])) {
@@ -151,23 +138,22 @@ class PageController extends Controller {
 		} else {
 			$filePath = $path;
 			$fileId = $this->rootFolder->getUserFolder($this->userId)
-				->get(preg_replace("/.*\/remote.php\/webdav(.*)/", "$1", rawurldecode((string) $this->request->getParam('file'))))
-				->getId();
+				->get(preg_replace('/.*\\/remote.php\\/webdav(.*)/', '$1', rawurldecode((string) $this->request->getParam('file'))))
+				->getId()
+			;
 		}
 
-		$pathInfo = pathInfo($filePath);
-		if (!is_array($pathInfo)) {
-			throw new InvalidPathException("Can not get info for $filePath");
-		}
+		$pathInfo = pathinfo($filePath);
 
 		return [
 			'fileName' => $pathInfo['filename'],
 			'fileType' => strtolower($pathInfo['extension'] ?? ''),
-			'fileId' => $fileId
+			'fileId' => $fileId,
 		];
 	}
 
-	private function toJson(array $value): string {
+	private function toJson(array $value): string
+	{
 		return htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8');
 	}
 }

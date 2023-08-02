@@ -15,15 +15,10 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
 
-class PreferenceController extends Controller {
-
+class PreferenceController extends Controller
+{
 	private PreferenceService $preferenceService;
 
-	/**
-	 * @param string $AppName
-	 * @param IRequest $request
-	 * @param PreferenceService $preferenceService
-	 */
 	public function __construct(
 		string $AppName,
 		IRequest $request,
@@ -39,11 +34,10 @@ class PreferenceController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @param string $scope
-	 * @param int $fileId
 	 * @param ?string $name if null, return all preferences for $scope + $fileId
 	 */
-	public function get(string $scope, int $fileId, ?string $name = null): JSONResponse {
+	public function get(string $scope, int $fileId, ?string $name = null): JSONResponse
+	{
 		return new JSONResponse($this->preferenceService->get($scope, $fileId, $name));
 	}
 
@@ -52,16 +46,11 @@ class PreferenceController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @param string $scope
-	 * @param int $fileId
-	 * @param string $name
-	 * @param string $value
 	 */
-	public function set(string $scope, int $fileId, string $name, string $value): JSONResponse {
+	public function set(string $scope, int $fileId, string $name, string $value): JSONResponse
+	{
 		return new JSONResponse($this->preferenceService->set($scope, $fileId, $name, $value));
 	}
-
 
 	/**
 	 * @brief return default preference
@@ -69,10 +58,10 @@ class PreferenceController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @param string $scope
 	 * @param string $name if null, return all default preferences for scope
 	 */
-	public function getDefault(string $scope, string $name): JSONResponse {
+	public function getDefault(string $scope, string $name): JSONResponse
+	{
 		return new JSONResponse($this->preferenceService->getDefault($scope, $name));
 	}
 
@@ -81,33 +70,25 @@ class PreferenceController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @param string $scope
-	 * @param string $name
-	 * @param string $value
 	 */
-	public function setDefault(string $scope, string $name, string $value): JSONResponse {
+	public function setDefault(string $scope, string $name, string $value): JSONResponse
+	{
 		return new JSONResponse($this->preferenceService->setDefault($scope, $name, $value));
 	}
 
 	/**
 	 * @brief delete preference
-	 *
-	 * @param string $scope
-	 * @param int $fileId
-	 * @param string $name
 	 */
-	public function delete(string $scope, int $fileId, string $name): void {
+	public function delete(string $scope, int $fileId, string $name): void
+	{
 		$this->preferenceService->delete($scope, $fileId, $name);
 	}
 
 	/**
 	 * @brief delete default preference
-	 *
-	 * @param string $scope
-	 * @param string $name
 	 */
-	public function deleteDefault(string $scope, string $name): void {
+	public function deleteDefault(string $scope, string $name): void
+	{
 		$this->preferenceService->deleteDefault($scope, $name);
 	}
 }

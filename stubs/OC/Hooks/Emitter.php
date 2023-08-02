@@ -20,32 +20,20 @@
  *
  * You should have received a copy of the GNU Affero General Public License, version 3,
  * along with this program. If not, see <http://www.gnu.org/licenses/>
- *
  */
+
 namespace OC\Hooks;
 
 /**
- * Class Emitter
+ * Class Emitter.
  *
  * interface for all classes that are able to emit events
  *
- * @package OC\Hooks
  * @deprecated 18.0.0 use events and the \OCP\EventDispatcher\IEventDispatcher service
  */
-interface Emitter {
-	/**
-	 * @param string $scope
-	 * @param string $method
-	 * @param callable $callback
-	 * @return void
-	 */
-	public function listen($scope, $method, callable $callback);
+interface Emitter
+{
+	public function listen(string $scope, string $method, callable $callback): void;
 
-	/**
-	 * @param string $scope optional
-	 * @param string $method optional
-	 * @param callable $callback optional
-	 * @return void
-	 */
-	public function removeListener($scope = null, $method = null, callable $callback = null);
+	public function removeListener(string $scope = null, string $method = null, callable $callback = null): void;
 }

@@ -18,7 +18,6 @@ declare(strict_types=1);
  *
  * You should have received a copy of the GNU Affero General Public License, version 3,
  * along with this program. If not, see <http://www.gnu.org/licenses/>
- *
  */
 
 namespace OCA\Epubreader\Utility;
@@ -38,19 +37,20 @@ use Psr\Container\NotFoundExceptionInterface;
  *
  * @since 25.0.0
  */
-final class Server {
+final class Server
+{
 	/**
 	 * @template T
 	 * @param class-string<T>|string $serviceName
-	 * @return T|mixed
-	 * @psalm-template S as class-string<T>|string
+	 * @template S as class-string<T>|string
 	 * @psalm-param S $serviceName
-	 * @psalm-return (S is class-string<T> ? T : mixed)
+	 * @return (S is class-string<T> ? T : mixed)
 	 * @throws ContainerExceptionInterface
 	 * @throws NotFoundExceptionInterface
 	 * @since 25.0.0
 	 */
-	public static function get(string $serviceName) {
+	public static function get(string $serviceName)
+	{
 		/** @psalm-suppress UndefinedClass */
 		return \OC::$server->get($serviceName);
 	}

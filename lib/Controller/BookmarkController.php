@@ -15,15 +15,10 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
 
-class BookmarkController extends Controller {
-
+class BookmarkController extends Controller
+{
 	private BookmarkService $bookmarkService;
 
-	/**
-	 * @param string $AppName
-	 * @param IRequest $request
-	 * @param BookmarkService $bookmarkService
-	 */
 	public function __construct(
 		string $AppName,
 		IRequest $request,
@@ -38,12 +33,9 @@ class BookmarkController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @param int $fileId
-	 * @param ?string $name
-	 * @param ?string $type
 	 */
-	public function get(int $fileId, ?string $name = null, ?string $type = null): JSONResponse {
+	public function get(int $fileId, ?string $name = null, ?string $type = null): JSONResponse
+	{
 		return new JSONResponse($this->bookmarkService->get($fileId, $name, $type));
 	}
 
@@ -52,14 +44,9 @@ class BookmarkController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @param int $fileId
-	 * @param string $name
-	 * @param string $value
-	 * @param ?string $type
-	 * @param ?string $content
 	 */
-	public function set(int $fileId, string $name, string $value, ?string $type = null, ?string $content = null): JSONResponse {
+	public function set(int $fileId, string $name, string $value, ?string $type = null, ?string $content = null): JSONResponse
+	{
 		return new JSONResponse($this->bookmarkService->set($fileId, $name, $value, $type, $content));
 	}
 
@@ -68,10 +55,9 @@ class BookmarkController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @param int $fileId
 	 */
-	public function getCursor(int $fileId): JSONResponse {
+	public function getCursor(int $fileId): JSONResponse
+	{
 		return new JSONResponse($this->bookmarkService->getCursor($fileId));
 	}
 
@@ -80,11 +66,9 @@ class BookmarkController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @param int $fileId
-	 * @param string $value
 	 */
-	public function setCursor(int $fileId, string $value): JSONResponse {
+	public function setCursor(int $fileId, string $value): JSONResponse
+	{
 		return new JSONResponse($this->bookmarkService->setCursor($fileId, $value));
 	}
 
@@ -93,11 +77,9 @@ class BookmarkController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @param int $fileId
-	 * @param string name
 	 */
-	public function delete(int $fileId, string $name): void {
+	public function delete(int $fileId, string $name): void
+	{
 		$this->bookmarkService->delete($fileId, $name);
 	}
 
@@ -106,10 +88,9 @@ class BookmarkController extends Controller {
 	 *
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @param int $fileId
 	 */
-	public function deleteCursor(int $fileId): void {
+	public function deleteCursor(int $fileId): void
+	{
 		$this->bookmarkService->deleteCursor($fileId);
 	}
 }

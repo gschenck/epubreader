@@ -16,15 +16,16 @@ use OCA\Epubreader\Db\ReaderEntity;
 /**
  * @psalm-import-type SerializedEntity from ReaderEntity
  */
-class BookmarkService extends Service {
-
+class BookmarkService extends Service
+{
 	// "bookmark" name to use for the cursor (current reading position)
 	private const CURSOR = '__CURSOR__';
 	private const BOOKMARK_TYPE = 'bookmark';
 
 	private BookmarkMapper $bookmarkMapper;
 
-	public function __construct(BookmarkMapper $bookmarkMapper) {
+	public function __construct(BookmarkMapper $bookmarkMapper)
+	{
 		parent::__construct($bookmarkMapper);
 		$this->bookmarkMapper = $bookmarkMapper;
 	}
@@ -34,68 +35,58 @@ class BookmarkService extends Service {
 	 *
 	 * bookmark type is format-dependent, eg CFI for epub, page number for CBR/CBZ, etc
 	 *
-	 * @param int $fileId
-	 * @param ?string $name
-	 * @param ?string $type
-	 *
-	 * @psalm-return SerializedEntity[]
+	 * @return SerializedEntity[]
 	 */
-	public function get($fileId, ?string $name = null, ?string $type = null): array {
+	public function get(int $fileId, ?string $name = null, ?string $type = null): array
+	{
 		$result = $this->bookmarkMapper->get($fileId, $name, $type);
+
 		return array_map(
 			function (ReaderEntity $entity): array {
 				return $entity->toService();
-			}, $result);
+			},
+			$result
+		);
 	}
 
 	/**
 	 * @brief write bookmark
 	 *
 	 * position type is format-dependent, eg CFI for epub, page number for CBR/CBZ, etc
-	 *
-	 * @param int $fileId
-	 * @param string $name
-	 * @param string $value
-	 * @param ?string $type
-	 * @param ?string $content
 	 */
-	public function set(int $fileId, string $name, string $value, ?string $type = null, ?string $content = null): ReaderEntity {
+	public function set(int $fileId, string $name, string $value, ?string $type = null, ?string $content = null): ReaderEntity
+	{
 		return $this->bookmarkMapper->set($fileId, $name, $value, $type, $content);
 	}
 
 	/**
 	 * @brief get cursor (current position in book)
 	 *
-	 * @param int $fileId
-	 *
-	 * @psalm-return SerializedEntity
+	 * @return SerializedEntity
 	 */
-	public function getCursor(int $fileId): array {
+	public function getCursor(int $fileId): array
+	{
 		$result = $this->get($fileId, self::CURSOR);
-		if (count($result) === 1) {
+		if (1 === count($result)) {
 			return $result[0];
 		}
+
 		return [];
 	}
 
 	/**
 	 * @brief set cursor (current position in book)
-	 *
-	 * @param int $fileId
-	 * @param string $value
 	 */
-	public function setCursor(int $fileId, string $value): ReaderEntity {
+	public function setCursor(int $fileId, string $value): ReaderEntity
+	{
 		return $this->bookmarkMapper->set($fileId, self::CURSOR, $value, self::BOOKMARK_TYPE);
 	}
 
 	/**
 	 * @brief delete bookmark
-	 *
-	 * @param int $fileId
-	 * @param ?string $name
-	 * @param ?string $type
 	 */
-	public function delete($fileId, ?string $name = null, ?string $type = null): void {
+	public function delete(int $fileId, ?string $name = null, ?string $type = null): void
+	{
 		foreach ($this->bookmarkMapper->get($fileId, $name, $type) as $bookmark) {
 			$this->bookmarkMapper->delete($bookmark);
 		}
@@ -103,10 +94,9 @@ class BookmarkService extends Service {
 
 	/**
 	 * @brief delete cursor
-	 *
-	 * @param int $fileId
 	 */
-	public function deleteCursor(int $fileId): void {
+	public function deleteCursor(int $fileId): void
+	{
 		$this->delete($fileId, self::CURSOR, self::BOOKMARK_TYPE);
 	}
 }

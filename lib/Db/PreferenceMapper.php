@@ -13,11 +13,12 @@ namespace OCA\Epubreader\Db;
 use OCA\Epubreader\Utility\Time;
 use OCP\IDBConnection;
 
-class PreferenceMapper extends ReaderMapper {
-
+class PreferenceMapper extends ReaderMapper
+{
 	private string $userId;
 
-	public function __construct(IDBConnection $db, string $UserId, Time $time) {
+	public function __construct(IDBConnection $db, string $UserId, Time $time)
+	{
 		parent::__construct($db, 'reader_prefs', Preference::class, $time);
 		$this->userId = $UserId;
 	}
@@ -25,19 +26,17 @@ class PreferenceMapper extends ReaderMapper {
 	/**
 	 * @brief get preferences for $scope+$fileId+$userId(+$name)
 	 *
-	 * @param string $scope
-	 * @param int $fileId
-	 * @param ?string $name
-	 *
 	 * @return ReaderEntity[]
 	 */
-	public function get(string $scope, int $fileId, ?string $name = null): array {
+	public function get(string $scope, int $fileId, ?string $name = null): array
+	{
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
 			->from($this->getTableName())
 			->where($query->expr()->eq('scope', $query->createNamedParameter($scope)))
 			->andWhere($query->expr()->eq('file_id', $query->createNamedParameter($fileId)))
-			->andWhere($query->expr()->eq('user_id', $query->createNamedParameter($this->userId)));
+			->andWhere($query->expr()->eq('user_id', $query->createNamedParameter($this->userId)))
+		;
 
 		if (!empty($name)) {
 			$query->andWhere($query->expr()->eq('name', $query->createNamedParameter($name)));
@@ -49,17 +48,13 @@ class PreferenceMapper extends ReaderMapper {
 	/**
 	 * @brief write preference to database
 	 *
-	 * @param string $scope
-	 * @param int $fileId
-	 * @param string $name
-	 * @param string $value
-	 *
 	 * @return ReaderEntity the newly created or updated preference
 	 */
-	public function set(string $scope, int $fileId, string $name, string $value): ReaderEntity {
+	public function set(string $scope, int $fileId, string $name, string $value): ReaderEntity
+	{
 		$result = $this->get($scope, $fileId, $name);
 
-		if(empty($result)) {
+		if (empty($result)) {
 			$preference = new Preference();
 			$preference->setScope($scope);
 			$preference->setFileId($fileId);

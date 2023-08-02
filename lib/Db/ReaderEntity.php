@@ -15,41 +15,44 @@ use OCP\AppFramework\Db\Entity;
 /**
  * @psalm-type SerializedEntity = array<string|int|array>
  */
-abstract class ReaderEntity extends Entity {
-
+abstract class ReaderEntity extends Entity
+{
 	protected int $lastModified; // modification timestamp
 
 	/**
-	 * returns decoded json if input is json, otherwise returns input
+	 * returns decoded json if input is json, otherwise returns input.
 	 *
-	 * @return string|array
+	 * @return array|string
 	 */
-	public function conditional_json_decode(string $el): mixed {
+	public function conditional_json_decode(string $el): mixed
+	{
 		/** @var array $result */
 		$result = json_decode($el);
-		if (json_last_error() === JSON_ERROR_NONE) {
+		if (JSON_ERROR_NONE === json_last_error()) {
 			return $result;
-		} else {
-			return $el;
 		}
+
+		return $el;
 	}
 
-	public function getLastModified(): int {
+	public function getLastModified(): int
+	{
 		return $this->lastModified;
 	}
 
-	public function setLastModified(int $lastModified): void {
+	public function setLastModified(int $lastModified): void
+	{
 		$this->lastModified = $lastModified;
 		$this->markFieldUpdated('lastModified');
 	}
 
 	/**
-	 * @psalm-return SerializedEntity
+	 * @return SerializedEntity
 	 */
 	abstract public function toService(): array;
 
 	/**
-	 * @psalm-return SerializedEntity
+	 * @return SerializedEntity
 	 */
 	abstract public function jsonSerialize(): array;
 }

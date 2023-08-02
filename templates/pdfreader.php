@@ -14,7 +14,7 @@ $metadata = $_['metadata'];
 $annotations = $_['annotations'];
 $title = htmlentities(basename($downloadLink));
 $revision = '0130';
-$version = \OC::$server->getAppManager()->getAppVersion('epubreader') . '.' . $revision;
+$version = \OC::$server->getAppManager()->getAppVersion('epubreader').'.'.$revision;
 
 /* Mobile safari, the new IE6 */
 $idevice = (strstr($_SERVER['HTTP_USER_AGENT'], 'iPhone')
@@ -28,50 +28,50 @@ $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
 ?>
 
 <html dir="ltr">
-<head class="session" data-nonce='<?php p($nonce);?>' data-downloadlink='<?php print_unescaped($downloadLink);?>' data-fileid='<?php print_unescaped($fileId);?>' data-filetype='<?php print_unescaped($fileType);?>' data-filename='<?php print_unescaped($fileName);?>' data-version='<?php print_unescaped($version);?>' data-basepath='<?php p($urlGenerator->linkToRoute('epubreader.page.showReader'));?>' data-staticpath='<?php p($urlGenerator->linkTo('epubreader', ''));?>' data-scope='<?php print_unescaped($scope);?>' data-cursor='<?php print_unescaped($cursor);?>' data-defaults='<?php print_unescaped($defaults);?>' data-preferences='<?php print_unescaped($preferences);?>' data-metadata='<?php print_unescaped($metadata);?>' data-annotations='<?php print_unescaped($annotations);?>'>
+<head class="session" data-nonce='<?php p($nonce); ?>' data-downloadlink='<?php print_unescaped($downloadLink); ?>' data-fileid='<?php print_unescaped($fileId); ?>' data-filetype='<?php print_unescaped($fileType); ?>' data-filename='<?php print_unescaped($fileName); ?>' data-version='<?php print_unescaped($version); ?>' data-basepath='<?php p($urlGenerator->linkToRoute('epubreader.page.showReader')); ?>' data-staticpath='<?php p($urlGenerator->linkTo('epubreader', '')); ?>' data-scope='<?php print_unescaped($scope); ?>' data-cursor='<?php print_unescaped($cursor); ?>' data-defaults='<?php print_unescaped($defaults); ?>' data-preferences='<?php print_unescaped($preferences); ?>' data-metadata='<?php print_unescaped($metadata); ?>' data-annotations='<?php print_unescaped($annotations); ?>'>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <!-- <base href="<?php p($urlGenerator->linkTo('epubreader', ''));?>"> -->
+        <!-- <base href="<?php p($urlGenerator->linkTo('epubreader', '')); ?>"> -->
         <title>
-            <?php p($title);?>
+            <?php p($title); ?>
         </title>
-        <link rel="shortcut icon" href="<?php p($urlGenerator->linkTo('epubreader', 'img/book.png')) ?>">
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/icomoon/style.css')) ?>?v=<?php p($version) ?>">
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/css/main.css')) ?>?v=<?php p($version) ?>">
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/css/sidebar.css')) ?>?v=<?php p($version) ?>">
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/css/text_layer_builder.css')) ?>?v=<?php p($version) ?>">
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/css/annotation_layer_builder.css')) ?>?v=<?php p($version) ?>">
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/libs/jquery.min.js')) ?>?v=<?php p($version) ?>"> </script>
-		<script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/lib/pdf.worker.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/bartaz/jquery.highlight.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/jquery/put-delete.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/sindresorhus/screenfull.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/lib/pdf.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/pdf.reader.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/services/eventbus_service.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/services/link_service.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/services/simple_link_service.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/progress_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/textlayer_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/search_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/reader_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/sidebar_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/settings_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/controls_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/toc_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/outline_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/annotationlayer_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/notes_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/bookmarks_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/styles_controller.js')) ?>?v=<?php p($version) ?>"> </script>
-        <?php if ($idevice): ?>
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/css/idevice.css')) ?>?v=<?php p($version) ?>">
-        <script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/bgrins/spectrum.js')) ?>?v=<?php p($version) ?>"> </script>
-        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/bgrins/spectrum.css')) ?>?v=<?php p($version) ?>">
-        <?php endif; ?>
+        <link rel="shortcut icon" href="<?php p($urlGenerator->linkTo('epubreader', 'img/book.png')); ?>">
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/icomoon/style.css')); ?>?v=<?php p($version); ?>">
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/css/main.css')); ?>?v=<?php p($version); ?>">
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/css/sidebar.css')); ?>?v=<?php p($version); ?>">
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/css/text_layer_builder.css')); ?>?v=<?php p($version); ?>">
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/css/annotation_layer_builder.css')); ?>?v=<?php p($version); ?>">
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/epubjs/libs/jquery.min.js')); ?>?v=<?php p($version); ?>"> </script>
+		<script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/lib/pdf.worker.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/bartaz/jquery.highlight.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/jquery/put-delete.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/sindresorhus/screenfull.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/lib/pdf.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/pdf.reader.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/services/eventbus_service.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/services/link_service.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/services/simple_link_service.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/progress_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/textlayer_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/search_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/reader_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/sidebar_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/settings_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/controls_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/toc_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/outline_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/annotationlayer_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/notes_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/bookmarks_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/controllers/styles_controller.js')); ?>?v=<?php p($version); ?>"> </script>
+        <?php if ($idevice) { ?>
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/pdfjs/css/idevice.css')); ?>?v=<?php p($version); ?>">
+        <script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'public/bgrins/spectrum.js')); ?>?v=<?php p($version); ?>"> </script>
+        <link rel="stylesheet" href="<?php p($urlGenerator->linkTo('epubreader', 'public/bgrins/spectrum.css')); ?>?v=<?php p($version); ?>">
+        <?php } ?>
 
-		<script type="text/javascript" nonce="<?php p($nonce) ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'js/ready.js')) ?>?v=<?php p($version) ?>"> </script>
+		<script type="text/javascript" nonce="<?php p($nonce); ?>" src="<?php p($urlGenerator->linkTo('epubreader', 'js/ready.js')); ?>?v=<?php p($version); ?>"> </script>
     </head>
     <body>
         <div id="outerContainer">
@@ -216,7 +216,7 @@ $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
                 <div id="titlebar">
                     <div id="opener">
                         <a id="slider" class="icon-menu">
-                            <?php p($l->t("menu")); ?>
+                            <?php p($l->t('menu')); ?>
                         </a>
                         <div id="status_message_left">
                         </div>
@@ -311,7 +311,7 @@ $nonce = class_exists('\OC\Security\CSP\ContentSecurityPolicyNonceManager')
                     </div>
                 </div>
                 <div id="loader">
-                    <img src="<?php p($urlGenerator->linkTo('epubreader', 'img/loading.gif')) ?>">
+                    <img src="<?php p($urlGenerator->linkTo('epubreader', 'img/loading.gif')); ?>">
                 </div>
 
                 <!-- /navigation + viewer -->

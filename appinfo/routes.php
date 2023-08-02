@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ownCloud - Epubreader App
+ * ownCloud - Epubreader App.
  *
  * @author Frank de Lange
  * @copyright 2015 Frank de Lange

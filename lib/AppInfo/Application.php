@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ownCloud - Epubreader App
+ * ownCloud - Epubreader App.
  *
  * @author Frank de Lange
  * @copyright 2015 - 2017 Frank de Lange
@@ -18,17 +18,20 @@ use OCP\Files\IRootFolder;
 use OCP\IDBConnection;
 use OCP\Util;
 
-class Application extends App {
-
+class Application extends App
+{
 	public const APP_ID = 'epubreader';
 
-	public function __construct() {
+	public function __construct()
+	{
 		parent::__construct(self::APP_ID);
 
 		/** @psalm-suppress DeprecatedInterface */
 		$container = $this->getContainer();
+
 		/** @var IRootFolder $rootFolder */
 		$rootFolder = $container->get(IRootFolder::class);
+
 		/** @var IDBConnection $dbConnection */
 		$dbConnection = $container->get(IDBConnection::class);
 		$hooks = new Hooks($rootFolder, $dbConnection);

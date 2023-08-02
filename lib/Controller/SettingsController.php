@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ownCloud - Epubreader App
+ * ownCloud - Epubreader App.
  *
  * @author Frank de Lange
  * @copyright 2014,2018 Frank de Lange
@@ -19,8 +19,8 @@ use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IRequest;
 
-class SettingsController extends Controller {
-
+class SettingsController extends Controller
+{
 	private string $userId;
 	private IL10N $l10n;
 	private IConfig $configManager;
@@ -42,19 +42,16 @@ class SettingsController extends Controller {
 	 * @brief set preference for file type association
 	 *
 	 * @NoAdminRequired
-	 *
-	 * @param string $EpubEnable
-	 * @param string $PdfEnable
-	 * @param string $CbxEnable
 	 */
-	public function setPreference(string $EpubEnable, string $PdfEnable, string $CbxEnable): JSONResponse {
+	public function setPreference(string $EpubEnable, string $PdfEnable, string $CbxEnable): JSONResponse
+	{
 		$this->configManager->setUserValue($this->userId, Application::APP_ID, 'epub_enable', $EpubEnable);
 		$this->configManager->setUserValue($this->userId, Application::APP_ID, 'pdf_enable', $PdfEnable);
 		$this->configManager->setUserValue($this->userId, Application::APP_ID, 'cbx_enable', $CbxEnable);
 
 		$response = [
 			'data' => ['message' => $this->l10n->t('Settings updated successfully.')],
-			'status' => 'success'
+			'status' => 'success',
 		];
 
 		return new JSONResponse($response);
