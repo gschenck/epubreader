@@ -17,7 +17,6 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Files\FileInfo;
 use OCP\Files\Folder;
-use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\IRequest;
@@ -109,7 +108,7 @@ class PageController extends Controller
 	 *
 	 * @param string $path path-fragment from url
 	 *
-	 * @throws InvalidPathException|NotFoundException
+	 * @throws NotFoundException
 	 */
 	private function getFileInfo(string $path): array
 	{
