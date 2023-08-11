@@ -5,7 +5,7 @@
 	"type": "project",
 	"license": "AGPL-3.0-or-later",
 	"require-dev": {
-		"nextcloud/ocp": "^27.0.1",
+		"nextcloud/ocp": "^27.0.2",
 		"psalm/phar": "^5.14.1",
 		"nextcloud/coding-standard": "^1.1.1"
 	},
