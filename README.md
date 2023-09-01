@@ -1,3 +1,5 @@
+from [https://git.crystalyx.net/Xefir/epubreader](https://git.crystalyx.net/Xefir/epubreader)
+
 epubreader
 ------------
 
